@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaChevronDown, FaArrowRight, FaFacebook, FaWhatsapp, FaThinkPeaks, FaYoutube, FaTiktok, FaInstagram } from 'react-icons/fa'
 import { useSiteContext } from '@/libs/contextProviders/siteContext'
 import { useExperienceContext } from '@/libs/contextProviders/experienceContext'
@@ -9,7 +9,6 @@ import { settings, siteLauyout } from '@/libs/settings'
 import { buildingDB } from '@/libs/blgDB'
 import Link from 'next/link'
 import RollOverStateWrapper from './RollOverStateWrapper'
-
 const socialsCss = `hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear bg-${settings.bonnoGreen} hover:bg-${settings.bonnoBlue}`
 // const socialsCss = 'hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear'
 
@@ -54,13 +53,39 @@ const socialsButtons = [
     { name: 'instagram', icon: <FaInstagram />, link: 'https://www.instagram.com/' },
 ]
 
-function LinkCard({ i }) {
+function LinkCard({ i,index }) {
+    const [onHover,setOnHover]=useState(false)
+    console.log('LinkCard:',i)
     return (
-        <div className='flex relative items-center justify-center w-full md:w-1/3 md:h-full h-[60vh] overflow-hidden '>
-            <img className='h-full hover:brightness-50 brightness-75 duration-300 ease-linear w-full object-cover' src={i?.renders?.[0]?.url} alt="building hero image" />
-            <Link href={`/projects/${i?._id}`} className={`flex absolute bottom-4 md:bottom-10 uppercase items-center justify-center tracking-tight font-extralight text-sm mx-auto z-10 text-gray-300 cursor-pointer rounded-full md:w-60 w-40 h-12 text-center ${settings.bonnoBlue}`}>
-                explore
-            </Link>
+        <div className='flex flex-col relative items-center justify-center w-full md:w-1/3 md:h-full h-[60vh] overflow-hidden '>
+            <div 
+                onMouseEnter={()=>setOnHover(true)}
+                onMouseLeave={()=>setOnHover(false)}
+                className='flex relative flex-4 w-full items-center justify-center'
+            >
+                <img 
+                    className='h-full hover:brightness-50 brightness-90 duration-300 ease-linear w-full object-cover' 
+                    src={i?.renders?.[0]?.url} alt="building hero image" 
+                />
+                    <Link 
+                        href={`/projects/${i?._id}`} 
+                        className={`${onHover ?'flex' : 'hidden'} transition-all duration-300 ease-linear absolute uppercase items-center justify-center tracking-tight m-auto font-extralight text-sm z-10 text-gray-300 cursor-pointer rounded-full md:w-60 w-40 h-12 text-center ${settings.bonnoBlue}`}
+                    >
+                        explore
+                    </Link>
+            </div>
+            <div className='flex py-2 flex-col px-4 text-gray-500 flex-1 w-full overflow-hidden gap-2'>
+                <div className='flex h-14 w-full gap-2'>
+                    <div className='flex items-start text-7xl h-full flex-1'>
+                        <div className='flex text-7xl h-full flex-1'>{i?.buildingSummary?.['beds']}</div>
+                        <div className='flex ml-2 h-full flex-wrap text-2xl tracking-tight uppercase leading-5 flex-2'>bedroomed house</div>
+                    </div>
+                        
+                    <div className='flex items-start h-full tracking-tight uppercase leading-5 text-2xl border-l-2 border-gray-400 pl-4 flex-2'>type 00{index+1}</div>
+                </div>
+                {/* <h1 className='flex flex-1 uppercase text-2xl'>{i?.buildingTitle}</h1> */}
+                <p className='flex h-12 leading-4 text-sm truncate text-wrap'>{i?.desc}...</p>
+            </div>
 
             {/* <Link href={`/projects/${i?._id}`} className={`absolute bottom-5 uppercase items-center justify-center tracking-tight text-center font-extralight text-sm w-fit mx-auto z-10 text-gray-800 cursor-pointer rounded-full ${settings.bonnoBlueFaint}`}>
                 <RollOverStateWrapper src={{ hover: './assets/thumbnal_explore_btn_ov.png', default: './assets/thumbnal_explore_btn_ov.png' }} />
@@ -72,6 +97,33 @@ function LinkCard({ i }) {
 export default function LandingPageTextCmponent() {
     const { siteState } = useSiteContext()
     const { experienceDispatch } = useExperienceContext()
+    const [buildings, setBuildings] = useState(buildingDB || []); // Initialize with static data or empty array
+
+      // Fetch buildings from API
+      const fetchBuildings = async () => {
+        try {
+            const response = await fetch('/api/buildings');
+            if (response.ok) {
+                const data = await response.json();
+                // Ensure we have an array (handle pagination response structure if needed, usually data.buildings or just data)
+                // The API /api/buildings returns { buildings: [...], pagination: {...} }
+                const buildingsList = data.buildings || [];
+                if (buildingsList.length > 0) {
+                     setBuildings(buildingsList);
+                }
+            } else {
+                console.error('Failed to fetch buildings');
+            }
+        } catch (error) {
+            console.error('Error fetching building data:', error);
+        }
+      };
+    
+      // Load buildings on component mount
+      useEffect(() => {
+        fetchBuildings();
+      }, []);
+
     // console.log(siteState)
     return (
         (!siteState?.landingPageCarouselPopup &&
@@ -174,8 +226,8 @@ export default function LandingPageTextCmponent() {
                 {/* --- BUILDING SELECTOR --- */}
                 <section>
                     < div id="residential" className="flex md:flex-row flex-col relative h-fit md:h-[calc(100vh-144px)] mb-16" >
-                        {buildingDB?.map((i, index) =>
-                            <LinkCard key={index} i={i} />
+                        {buildings?.map((i, index) =>
+                            <LinkCard key={index} index={index} i={i} />
                         )}
                     </div >
                 </section >
