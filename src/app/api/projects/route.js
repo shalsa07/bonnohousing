@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
 
     const project = await request.json();
 
@@ -35,7 +35,7 @@ export async function POST(request) {
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
 
     const projects = await db.collection('projects').find({}).toArray();
 

@@ -5,7 +5,7 @@ import UsersPageClient from '@/components/admin/UsersPageClient';
 export default async function UsersPage() {
   const session = await auth();
   const client = await clientPromise;
-  const db = client.db("ppsbluyari");
+  const db = client.db("bonnohousing");
 
   const users = await db.collection('users')
     .find({})

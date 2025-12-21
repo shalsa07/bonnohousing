@@ -55,7 +55,7 @@ function isValidObjectId(id) {
 export async function GET(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = await params;
 
     // Validate ObjectId format
@@ -92,7 +92,7 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = await params;
 
     // Validate ObjectId format
@@ -160,7 +160,7 @@ export async function PUT(request, { params }) {
 export async function PATCH(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = await params;
 
     // Validate ObjectId format
@@ -219,7 +219,7 @@ export async function PATCH(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = await params;
 
     // Validate ObjectId format

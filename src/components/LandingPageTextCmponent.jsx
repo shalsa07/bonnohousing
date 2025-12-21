@@ -55,7 +55,7 @@ const socialsButtons = [
 
 function LinkCard({ i,index }) {
     const [onHover,setOnHover]=useState(false)
-    console.log('LinkCard:',i)
+    // console.log('LinkCard:',i)
     return (
         <div className='flex flex-col relative items-center justify-center w-full md:w-1/3 md:h-full h-[60vh] overflow-hidden '>
             <div 

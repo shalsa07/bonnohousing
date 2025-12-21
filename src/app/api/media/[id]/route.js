@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 export async function GET(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = params;
 
     const media = await db.collection('media').findOne({ _id: new ObjectId(id) });
@@ -38,7 +38,7 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = params;
     const updates = await request.json();
 
@@ -75,7 +75,7 @@ export async function PUT(request, { params }) {
 export async function PATCH(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = params;
     const updates = await request.json();
 
@@ -112,7 +112,7 @@ export async function PATCH(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const { id } = params;
 
     const result = await db.collection('media').deleteOne({ _id: new ObjectId(id) });

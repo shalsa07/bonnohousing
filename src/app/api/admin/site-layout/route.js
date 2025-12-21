@@ -6,7 +6,7 @@ import { siteLauyout } from '@/libs/settings';
 export async function GET() {
     try {
         const client = await clientPromise;
-        const db = client.db("ppsbluyari");
+        const db = client.db("bonnohousing");
 
         // Fetch site layout from database
         const siteLayout = await db.collection('siteLayout').findOne({});
@@ -49,7 +49,7 @@ export async function POST(request) {
         // }
 
         const client = await clientPromise;
-        const db = client.db("ppsbluyari");
+        const db = client.db("bonnohousing");
 
         const siteLayoutData = await request.json();
 

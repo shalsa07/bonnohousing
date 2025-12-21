@@ -20,7 +20,7 @@ export async function GET() {
     }
 
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
 
     // Get project statistics
     const totalProjects = await db.collection('buildings').countDocuments();

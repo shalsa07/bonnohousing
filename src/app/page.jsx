@@ -13,7 +13,7 @@ export default async function Home() {
   let buildings = [];
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     const rawBuildings = await db.collection('buildings').find({}).sort({ createdAt: -1 }).toArray();
     buildings = JSON.parse(JSON.stringify(rawBuildings));
   } catch (e) {

@@ -30,7 +30,7 @@ function validateBuildingData(building) {
 export async function POST(request) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
 
     const building = await request.json();
 
@@ -74,7 +74,7 @@ export async function POST(request) {
 export async function GET(request) {
   try {
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
 
     // Get query parameters for pagination and filtering
     const { searchParams } = new URL(request.url);

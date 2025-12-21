@@ -24,7 +24,7 @@ const getData = async (id) => {
     }
 
     const client = await clientPromise;
-    const db = client.db("ppsbluyari");
+    const db = client.db("bonnohousing");
     
     const building = await db.collection('buildings').findOne({ _id: new ObjectId(id) });
     
