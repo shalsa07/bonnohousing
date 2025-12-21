@@ -82,11 +82,17 @@ export default function Navbar() {
 
       {/* OPEN BTN */}
       {(!closeBtnState && pathname?.split('/').length >= 3) &&
-        <div
+        // <div
+        //   onClick={() => setCloseBtnState(!closeBtnState)}
+        //   className={`open-btn hidden absolute ${session?.user ? 'right-20' : 'right-0'} md:flex top-[11px] w-fit max-h-10 duration-700 ease-linear ${closeBtnState ? 'mr-[70px]' : 'mr-0'}`}
+        // >
+        //   <RollOverStateWrapper src={settings.btnsImages.btnOpen} />
+        // </div>
+        <div 
           onClick={() => setCloseBtnState(!closeBtnState)}
-          className={`open-btn hidden absolute right-20 md:flex top-[11px] w-fit max-h-10 duration-700 ease-linear ${closeBtnState ? 'mr-[70px]' : 'mr-0'}`}
+          className={`close-btn flex font-bold text-xs mt-2 shadow uppercase absolute z-20 ${settings.bonnoBlue} hover:bg-gray-500 cursor-pointer top-0 w-fit pl-6 pr-10 rounded-l-full min-h-12 items-center justify-center ${session?.user ? 'right-28' : 'right-0'} ${closeBtnState ? 'mr-[70px]' : 'mr-0'}`}
         >
-          <RollOverStateWrapper src={settings.btnsImages.btnOpen} />
+          open
         </div>
       }
 

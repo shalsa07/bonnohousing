@@ -76,11 +76,8 @@ export default function RichTextEditor({
             return;
         }
 
-        const email = prompt('Enter email address:');
-        if (email) {
-            execCommand('createLink', `mailto:${email}`);
-            handleInput();
-        }
+        execCommand('createLink', `mailto:${selectedText}`);
+        handleInput();
     };
 
     // Create URL link
@@ -93,10 +90,10 @@ export default function RichTextEditor({
             return;
         }
 
-        const url = prompt('Enter URL:');
+        const url = prompt('Enter URL:', 'https://');
         if (url) {
-            const fullUrl = url.startsWith('http') ? url : `https://${url}`;
-            execCommand('createLink', fullUrl);
+            // Basic validation/formatting could go here, but keeping it flexible as requested
+            execCommand('createLink', url);
             handleInput();
         }
     };
@@ -125,7 +122,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={() => execCommand('bold')}
                         className="w-9 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors"
-                        title="Bold"
+                        title="Bold Text"
                     >
                         <span className="font-bold text-lg">B</span>
                     </button>
@@ -134,7 +131,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={() => execCommand('italic')}
                         className="w-9 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors"
-                        title="Italic"
+                        title="Italic Text"
                     >
                         <span className="italic text-lg">I</span>
                     </button>
@@ -143,7 +140,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={() => execCommand('underline')}
                         className="w-9 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors"
-                        title="Underline"
+                        title="Underline Text"
                     >
                         <span className="underline text-lg">U</span>
                     </button>
@@ -152,7 +149,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={() => execCommand('strikeThrough')}
                         className="w-9 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors"
-                        title="Strikethrough"
+                        title="Strikethrough Text"
                     >
                         <span className="line-through text-lg">S</span>
                     </button>
@@ -165,7 +162,7 @@ export default function RichTextEditor({
                             type="button"
                             onClick={() => setShowFontSizeMenu(!showFontSizeMenu)}
                             className="px-3 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors text-sm"
-                            title="Font Size"
+                            title="Change Font Size"
                         >
                             Aa ▼
                         </button>
@@ -193,7 +190,7 @@ export default function RichTextEditor({
                             type="button"
                             onClick={() => setShowColorPicker(!showColorPicker)}
                             className="w-9 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors"
-                            title="Text Color"
+                            title="Change Text Color"
                         >
                             <div className="w-5 h-5 rounded-full border-2 border-white" style={{ backgroundColor: currentColor }}></div>
                         </button>
@@ -229,7 +226,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={createEmailLink}
                         className="px-3 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors text-sm"
-                        title="Email Link"
+                        title="Convert Selection to Email Link"
                     >
                         📧
                     </button>
@@ -238,7 +235,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={createUrlLink}
                         className="px-3 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors text-sm"
-                        title="URL Link"
+                        title="Convert Selection to URL Link"
                     >
                         🔗
                     </button>
@@ -250,7 +247,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={() => { execCommand('insertUnorderedList'); handleInput(); }}
                         className="w-9 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors"
-                        title="Bulleted List"
+                        title="Unordered List"
                     >
                         •
                     </button>
@@ -259,7 +256,7 @@ export default function RichTextEditor({
                         type="button"
                         onClick={() => { execCommand('insertOrderedList'); handleInput(); }}
                         className="w-9 h-9 flex items-center justify-center rounded hover:bg-gray-700 transition-colors"
-                        title="Numbered List"
+                        title="Ordered List"
                     >
                         1.
                     </button>
@@ -282,7 +279,7 @@ export default function RichTextEditor({
                     ref={editorRef}
                     contentEditable={!disabled}
                     onInput={handleInput}
-                    className="min-h-[150px] p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                    className="min-h-[150px] p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 [&_a]:text-blue-600 [&_a]:underline [&_a]:cursor-pointer"
                     style={{
                         wordWrap: 'break-word',
                         overflowWrap: 'break-word'

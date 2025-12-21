@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import PagesWrapper from '@/components/PagesWrapper';
-import SearchBar from '@/components/SearchBar';
-import FilterPanel from '@/components/FilterPanel';
 import BuildingList from '@/components/BuildingList';
 
 export default function ProjectsPage() {
@@ -207,23 +205,6 @@ export default function ProjectsPage() {
           <h1 className="text-3xl font-light mb-2">Building Projects</h1>
           <p className="">Explore our collection of architectural designs</p>
         </div>
-
-        {/* Search and Filter Controls */}
-        {/* <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <div className="flex-1">
-            <SearchBar
-              onSearch={handleSearch}
-              placeholder="Search buildings by title, type, or description..."
-              disabled={loading}
-            />
-          </div>
-          <div className="flex-shrink-0">
-            <FilterPanel
-              onFiltersChange={handleFiltersChange}
-              disabled={loading}
-            />
-          </div>
-        </div> */}
 
         {/* Building List */}
         <div className="flex-1 overflow-y-auto">

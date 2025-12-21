@@ -11,28 +11,39 @@ import { buildingDB } from '@/libs/blgDB';
 // with `ssr: false` to avoid server‑side rendering issues in XRViewer.
 // It will be rendered below with the fetched `data` prop.
 
+// Direct database access for Server Component
+import clientPromise from '@/libs/db';
+import { ObjectId } from 'mongodb';
+
 const getData = async (id) => {
   try {
-    // Construct the API URL - works in both dev and production
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ||
-      (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3004');
-
-    const response = await fetch(`${baseUrl}/api/buildings/${id}`, {
-      cache: 'no-store' // Ensure fresh data on each request
-    });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error('Building not found');
-      }
-      throw new Error('Failed to fetch building data');
+    // Validate ObjectId
+    if (!ObjectId.isValid(id)) {
+      console.error('Invalid building ID format:', id);
+      return [];
     }
 
-    const data = await response.json();
-    return [data]; // Return as array to match original format
+    const client = await clientPromise;
+    const db = client.db("ppsbluyari");
+    
+    const building = await db.collection('buildings').findOne({ _id: new ObjectId(id) });
+    
+    if (!building) {
+      return [];
+    }
+
+    // Serialize ObjectId and dates for Client Components if needed, 
+    // though passing to ExperienceWorldClient (likely client component) might require it.
+    // Ensure _id and dates are strings/numbers if passed to client components.
+    // However, the original fetch returned JSON which converts dates to strings automatically.
+    // We should mimic that behavior roughly or ensure the component handles it.
+    // ExperienceWorldClient likely expects a plain JS object.
+    
+    const serializedBuilding = JSON.parse(JSON.stringify(building));
+    return [serializedBuilding];
+
   } catch (error) {
     console.error('Error fetching building data:', error);
-    // Return empty array if fetch fails to prevent page crash
     return [];
   }
 }

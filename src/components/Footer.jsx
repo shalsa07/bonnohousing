@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className='flex fixed text-white bottom-0 overflow-hidden right-0 mx-auto z-50 justify-between w-full h-16 items-center'>
+    <footer className='flex fixed text-white bottom-0 overflow-hidden right-0 mx-auto z-30 justify-between w-full h-16 items-center'>
       <div className={`flex flex-row relative flex-wrap px-2 items-center ${settings.bonnoBlueFaint} w-1/2 h-full`}>
         {siteLauyout?.footerPagesLinks?.map(i =>
           <Link key={i} className='md:text-xs text-[10px] border-l-1 text-wrap border-white px-2 max-w-fit uppercase' href={`/`}>{i}</Link>
