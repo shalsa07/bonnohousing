@@ -37,17 +37,17 @@ export default function LinkCard({ project, index }) {
                     )}
                 </div>
 
-                <div className='p-2 flex flex-1 flex-col flex-grow'>
+                <div className='px-2 py-1 flex flex-1 flex-col flex-grow'>
                     <h2 className='text-xl font-light text-neutral-500 mb-2 group-hover:text-neutral-700 transition-colors uppercase tracking-tight duration-300'>
                         {project?.buildingTitle}
                     </h2>
-                    <p className='text-sm text-neutral-500 font-extralight tracking-wider uppercase mb-3'>
+                    {/* <p className='text-sm text-neutral-500 font-extralight tracking-wider uppercase mb-3'>
                         {project?.buildingType}
-                    </p>
+                    </p> */}
 
                     {/* Building Summary */}
                     {project.buildingSummary && (
-                        <div className="grid grid-cols-4 gap-2 p-3 bg-neutral-50 rounded-lg">
+                        <div className="grid grid-cols-4 gap-2 p-3 bg-neutral-100 rounded-md-">
                             <div className="text-center">
                                 <IoBedOutline className="w-4 h-4 mx-auto text-neutral-500 mb-1" />
                                 <span className="text-xs text-neutral-600">{project.buildingSummary.beds}</span>

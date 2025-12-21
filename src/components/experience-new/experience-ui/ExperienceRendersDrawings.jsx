@@ -57,7 +57,7 @@ export default function ExperienceRendersDrawings({ data, options, images = {}, 
                     </div>
 
                     {/* Floor plan row */}
-                    <div className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8'>
+                    {plans?.length > 0 || elevations?.length > 0 && <div className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8'>
                         <div className='flex flex-col gap-2'>
                             <h3 className='uppercase tracking-wide text-xs text-stone-600'>plans</h3>
                             <div className='relative w-full aspect-[4/3] overflow-hidden rounded-lg bg-stone-200 ring-1 ring-stone-300'>
@@ -80,7 +80,7 @@ export default function ExperienceRendersDrawings({ data, options, images = {}, 
                                 </p>
                             )}
                         </div>
-                    </div>
+                    </div>}
 
                     {/* Overview + Why choose (Left as is, assuming these come from static data or 'hero' props not specified for edit, but user said 'images uploaded under drawings and hero featured'. Main overview was not explicitly asked to be editable but fits the pattern. I'll stick to the specific request for now to avoid over-engineering, but keeping the structure.) */}
                     <div className='mt-6 flex justify-between gap-6 text-xs leading-relaxed text-stone-700'>

@@ -1,6 +1,7 @@
 'use client';
 
 import LinkCard from './LinkCard';
+import LoadingComponent from './LoadingComponent';
 
 export default function BuildingList({ 
   buildings = [], 
@@ -13,10 +14,11 @@ export default function BuildingList({
   // Loading state
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 w-full">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-        <p className="text-gray-500 text-lg">Loading buildings...</p>
-      </div>
+      // <div className="flex flex-col items-center justify-center h-64 w-full">
+      //   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+      //   <p className="text-gray-500 text-lg">Loading buildings...</p>
+      // </div>
+      <LoadingComponent/>
     );
   }
 
@@ -110,7 +112,7 @@ export default function BuildingList({
     <div className="w-full">
       <ResultsHeader />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {buildings.map((building, index) => (
           <div key={building._id || index} className="h-[460px]">
             <LinkCard 

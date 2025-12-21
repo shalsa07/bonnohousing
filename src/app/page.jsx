@@ -4,11 +4,26 @@ import LandingPageTextCmponent from "@/components/LandingPageTextCmponent";
 import Image from "next/image";
 import { FaArrowRight, FaChevronDown } from 'react-icons/fa';
 
-export default function Home() {
+import Link from "next/link";
+import clientPromise from "@/libs/db";
+
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  let buildings = [];
+  try {
+    const client = await clientPromise;
+    const db = client.db("ppsbluyari");
+    const rawBuildings = await db.collection('buildings').find({}).sort({ createdAt: -1 }).toArray();
+    buildings = JSON.parse(JSON.stringify(rawBuildings));
+  } catch (e) {
+    console.error("Failed to fetch buildings", e);
+  }
+
   return (
     <main className="main-wrapper h-screen flex w-screen flex-col overflow-y-scroll">
       <LandingPageCarousel />
-      <LandingPageTextCmponent />
+      <LandingPageTextCmponent initialBuildings={buildings} />
       <LoadApplicationForm />
     </main>
   );
