@@ -54,17 +54,16 @@ export default function LinkCardDashboard({project,index,onDelete}) {
                     </div>
                 </div>
                 {/* Link to Project and Edit button */}
-                <Link
-                    href={`/projects/${project?._id}`}
+                <div
                     className="flex items-center border-t border-neutral-100 -opacity-0 group-hover:opacity-100 justify-between transition-opacity duration-300 mt-2"
                 >
-                    <span className="text-xs h-fit text-neutral-400 mt-2 tracking-widest text-center curores-pointer capitalize font-bold underline">
+                    <Link href={`/projects/${project?._id}`} className="text-xs h-fit text-neutral-400 mt-2 tracking-widest text-center curores-pointer capitalize font-bold underline">
                         View Project
-                    </span>
-                    <Link href={`/admin/projects/${project?._id}`} className="flex space-x-2">
-                        <span className="text-xs h-fit text-neutral-400  tracking-widest mt-2 cursor-pointer text-center capitalize underline font-bold">
+                    </Link>
+                    <div className="flex space-x-2">
+                        <Link href={`/admin/projects/${project?._id}`} className="text-xs h-fit text-neutral-400  tracking-widest mt-2 cursor-pointer text-center capitalize underline font-bold">
                             Edit
-                        </span>
+                        </Link>
                         {onDelete && (
                             <button
                                 onClick={(e) => {
@@ -77,8 +76,8 @@ export default function LinkCardDashboard({project,index,onDelete}) {
                                 Delete
                             </button>
                         )}
-                    </Link>
-                </Link>
+                    </div>
+                </div>
             </div>
         </div>
     </motion.div>

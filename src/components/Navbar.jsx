@@ -96,7 +96,7 @@ export default function Navbar() {
       </div>}
 
       {/* Mobile Menu Button */}
-      <div className='mobile-sign-in absolute md:hidden flex items-center justify-center top-2 right-0 min-w-fit z-50'>
+      <div className='mobile-sign-in h-full absolute md:hidden flex items-center justify-center my-auto  right-0 min-w-fit z-50'>
         {!mobileMenuOpen
           ? <IoIosMenu
             className='md:hidden text-4xl mr-2 cursor-pointer'
@@ -109,9 +109,9 @@ export default function Navbar() {
         }
 
         {/* SIGN BUTTON */}
-        {/* <div className='w-fit h-fit'>
-          <SignInBtn2 />
-        </div> */}
+        <div className='w-fit h-fit'>
+          {session?.user && (<SignInBtn2 />)}
+        </div>
       </div>
     </nav>
   )

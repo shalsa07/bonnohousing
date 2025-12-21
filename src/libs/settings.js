@@ -149,6 +149,10 @@ export const siteLauyout = {
         '/assets/botswana_pridemark.png',
         '/assets/ppsb_logo.png',
     ],
+    heroImages:[
+        '/assets/botswana_pridemark.png',
+        '/assets/ppsb_logo.png',
+    ],
     navbarPagesLinks: ['home', 'about us', 'houses', 'buy', 'rent', 'contacts'],
     footerPagesLinks: ['privacy policy', 'terms & conditions', 'copyright', 'full disclaimer'],
     socialsLinks: [

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import SiteLayoutForm from '@/components/forms/SiteLayoutForm';
 import { MdSettings } from 'react-icons/md';
+import DataMigrationButton from '@/components/admin/DataMigrationButton';
 
 export default function SettingsPage() {
   const [siteLayoutData, setSiteLayoutData] = useState(null);
@@ -77,7 +78,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="admin-settings h-fit p-8 max-w-6xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
         <MdSettings className="text-3xl text-blue-600" />
         <div>
@@ -111,6 +112,8 @@ export default function SettingsPage() {
           onSave={handleSave}
         />
       )}
+      
+      <DataMigrationButton />
     </div>
   );
 }

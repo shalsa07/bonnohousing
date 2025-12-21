@@ -443,7 +443,7 @@ export default function SiteLayoutForm({ initialData = {}, onSave }) {
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
                                 <div className="space-y-2">
-                                    {(house.images || []).map((image, imgIndex) => (
+                                    {(Array.isArray(house.images) ? house.images : []).map((image, imgIndex) => (
                                         <div key={imgIndex} className="flex gap-2 items-start">
                                             <input
                                                 type="text"
