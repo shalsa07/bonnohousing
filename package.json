@@ -1,0 +1,45 @@
+{
+  "name": "ppsbluyari",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev-https": "next dev --turbopack -p3004 --experimental-https",
+    "dev": "next dev --turbopack -p3004",
+    "build": "next build",
+    "start": "next start -p3004",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@auth/mongodb-adapter": "^3.10.0",
+    "@heroicons/react": "^2.2.0",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.3.0",
+    "@react-three/xr": "^6.6.26",
+    "@types/three": "^0.180.0",
+    "@uiw/react-color-block": "^2.9.2",
+    "@uiw/react-color-circle": "^2.8.1",
+    "firebase": "^12.4.0",
+    "framer-motion": "^12.23.22",
+    "lil-gui": "^0.20.0",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.19.0",
+    "next": "15.4.4",
+    "next-auth": "^5.0.0-beta.29",
+    "nodemailer": "^6.10.1",
+    "react": "19.1.0",
+    "react-colorful": "^5.6.1",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.4",
+    "tailwindcss": "^4"
+  },
+  "overrides": {
+    "three": "^0.180.0"
+  }
+}

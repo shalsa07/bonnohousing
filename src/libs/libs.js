@@ -1,0 +1,1 @@
+export const url=!process.env.PORDUCTION && `https://localhost:3004`
