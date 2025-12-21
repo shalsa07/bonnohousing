@@ -10,21 +10,56 @@ import { buildingDB } from '@/libs/blgDB'
 import Link from 'next/link'
 import RollOverStateWrapper from './RollOverStateWrapper'
 
-const socialsCss = 'hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear'
+const socialsCss = `hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear bg-${settings.bonnoGreen} hover:bg-${settings.bonnoBlue}`
+// const socialsCss = 'hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear'
+
+const heroImages = [
+    {
+        image: '/hero/bonno/0002.webp',
+        title: 'Modern Residential',
+        category: 'Exterior Visualization'
+    },
+    {
+        image: '/hero/bonno/0005.webp',
+        title: 'Contemporary Villa',
+        category: 'Exterior Visualization'
+    },
+    {
+        image: '/hero/bonno/0008.webp',
+        title: 'Urban Apartment',
+        category: 'Interior Visualization'
+    },
+    {
+        image: '/hero/bonno/0002.webp',
+        title: 'Modern Residential',
+        category: 'Exterior Visualization'
+    },
+    {
+        image: '/hero/bonno/0005.webp',
+        title: 'Contemporary Villa',
+        category: 'Exterior Visualization'
+    },
+    {
+        image: '/hero/bonno/0008.webp',
+        title: 'Urban Apartment',
+        category: 'Interior Visualization'
+    }
+];
+
+const socialsButtons = [
+    { name: 'facebook', icon: <FaFacebook />, link: 'https://www.facebook.com/' },
+    { name: 'whatsapp', icon: <FaWhatsapp />, link: 'https://www.whatsapp.com/' },
+    { name: 'youtube', icon: <FaYoutube />, link: 'https://www.youtube.com/' },
+    { name: 'tiktok', icon: <FaTiktok />, link: 'https://www.tiktok.com/' },
+    { name: 'instagram', icon: <FaInstagram />, link: 'https://www.instagram.com/' },
+]
 
 function LinkCard({ i }) {
-    const [onHover, setOnHover] = useState(false)
     return (
-        <Link href={`/projects/${i?._id}`} onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)} className='flex relative items-center justify-center w-full h-[100vh] md:w-1/3 md:h-full overflow-hidden'>
-            <img className={`absolute m-auto w-full brightness-75 z-10 ${onHover ? 'scale-0' : 'scale-100'} duration-300 ease-linear cursor-pointer h-full object-cover`} src={i?.renders?.[0]?.url} alt="" />
-            <img className={`absolute m-auto w-full brightness-75 duration-500 ease-linear cursor-pointer h-full object-cover`} src={i?.renders?.[1]?.url} alt="" />
-            <div className='flex flex-col items-end h-fit px-20 text-center text-white justify-center absolute bottom-4 m-auto z-10'>
-                <h1 className='text-3xl md:text-3xl text-wrap font-bold uppercase tracking-widest mb-2'>{i?.buildingTitle}</h1>
-                <span className='text-sm duration-300 ease-linear md:text-lg text-wrap mt-2 font-serif italic text-white/90 mb-4 max-w-2xl mx-auto drop-shadow-md'>
-                    {i?.desc}
-                </span>
-            </div>
-        </Link>
+        <div className='flex relative items-center justify-center w-full md:w-1/3 h-full overflow-hidden '>
+            <img className='h-full hover:brightness-50 brightness-75 duration-300 ease-linear w-auto object-cover' src={i?.renders?.[0]?.url} alt="building hero image" />
+            <Link href={`/projects/${i?._id}`} className={`absolute bottom-5 uppercase items-center justify-center text-center font-extralight text-sm w-60 mx-auto z-10 text-gray-800 py-3 cursor-pointer rounded-full ${settings.bonnoBlue}`}>explore</Link>
+        </div>
     )
 }
 
@@ -80,12 +115,20 @@ export default function LandingPageTextCmponent() {
                         </div>
                     </div>
 
+                    {/* --- SOCIALS SECTION --- */}
                     <div className='flex fixed z-20 flex-col right-0 top-0 bottom-0 my-auto h-fit w-fit'>
-                        {siteLauyout.socialsLinks.map((social, index) => (
+                        `{socialsButtons.map((social, index) => (
+                            <div className={`flex flex-col w-16 h-16 items-center justify-center ${settings.bonnoHoverBlue} transition-colors duration-200 ease-linear ${settings.bonnoGreen}`} key={index}>
+                                <Link className='text-white text-3xl' href={social.link}>
+                                    {social?.icon}
+                                </Link>
+                            </div>
+                        ))}`
+                        {/* `{siteLauyout.socialsLinks.map((social, index) => (
                             <div className='flex flex-col w-fit h-fit items-center justify-center' key={index}>
                                 <RollOverStateWrapper src={{ hover: social.hover, default: social.default }} />
                             </div>
-                        ))}
+                        ))}` */}
                     </div>
 
                     {/* <div className="absolute z-10 bottom-5 animate-bounce text-white">
@@ -110,7 +153,7 @@ export default function LandingPageTextCmponent() {
                 </section >
 
                 {/* --- CARUSAL SECTION --- */}
-                < section className="bg-neutral-50 mb-5" >
+                < section className="bg-neutral-50" >
                     {/* Tier 1: Zambia */}
                     <div div id="residential" className="flex relative h-[80vh] overflow-x-scroll" >
                         {siteLauyout?.conecptSection?.images?.map((i, index) =>
@@ -123,47 +166,13 @@ export default function LandingPageTextCmponent() {
                 </section >
 
                 {/* --- BUILDING SELECTOR --- */}
-                < section className="bg-neutral-50" >
-                    {/* Tier 1: Zambia */}
-                    < div id="residential" className="flex md:flex-row flex-col relative h-fit md:h-[100vh] bottom-16" >
+                <section>
+                    < div id="residential" className="flex md:flex-row flex-col relative h-[70vh] md:h-[calc(100vh-144px)] mb-16" >
                         {buildingDB?.map((i, index) =>
                             <LinkCard key={index} i={i} />
                         )}
                     </div >
                 </section >
-
-                {/* --- FOOTER --- */}
-                {/* < footer className="bg-black text-white py-16 border-t border-neutral-900" >
-                    <div className="max-w-7xl mx-auto px-6 text-center">
-                        <div className="text-3xl font-black tracking-[0.3em] uppercase mb-8">
-                            bonno housing scheme
-                        </div>
-                        <div className="flex justify-center gap-8 mb-6 text-xs font-bold tracking-widest uppercase text-neutral-500">
-                            <a href="#" className="hover:text-white duration-300 ease-linear transition-colors">Home</a>
-                            <a href="#" className="hover:text-white duration-300 ease-linear transition-colors">Contact</a>
-                        </div>
-                        <div className="flex justify-center gap-8 mb-6 text-xs font-bold tracking-widest uppercase text-neutral-500">
-                            <a href="#" className={socialsCss}>
-                                <FaFacebook />
-                            </a>
-                            <a href="#" className={socialsCss}>
-                                <FaWhatsapp />
-                            </a>
-                            <a href="#" className={socialsCss}>
-                                <FaTiktok />
-                            </a>
-                            <a href="#" className={socialsCss}>
-                                <FaInstagram />
-                            </a>
-                            <a href="#" className={socialsCss}>
-                                <FaYoutube />
-                            </a>
-                        </div>
-                        <p className="text-neutral-600 text-xs tracking-wide">
-                            &copy; 2025 PPSBluyari Property Development. All Rights Reserved.
-                        </p>
-                    </div>
-                </footer > */}
 
             </div >
         ))

@@ -4,6 +4,7 @@ export const settings = {
     bonnoTextBlue: 'text-[#0099FF]',
     bonnoTextGreen: 'text-[#79A627]',
     bonnoBlue: 'bg-[#0099FF]',
+    bonnoHoverBlue: 'hover:bg-[#0099FF]',
     bonnoGreen: 'bg-[#79A627]',
     bonnoBlueFaint: 'bg-[#0099FF]/75',
     bonnoGreenFaint: 'bg-[#79A627]/75',
@@ -87,6 +88,10 @@ export const settingsBtns = {
         explore: {
             default: '/assets/explore_btn_off.png',
             hover: '/assets/explore_btn_ov.png'
+        },
+        exploreLinkCard: {
+            default: '/assets/thumbnal_explore_btn_off.png',
+            hover: '/assets/thumbnal_explore_btn_ov.png'
         },
         logoFooter: {
             default: '/assets/ppsb_footer_logo.png',

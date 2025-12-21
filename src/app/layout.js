@@ -30,12 +30,12 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           <SiteContextProvider>
-          <ExperienceContextProvider>
-            <Navbar/>
-            <Footer/>
-            {children}
-            <WhatsAppComponent/>
-          </ExperienceContextProvider>
+            <ExperienceContextProvider>
+              <Navbar />
+              <Footer />
+              {children}
+              {/* <WhatsAppComponent/> */}
+            </ExperienceContextProvider>
           </SiteContextProvider>
         </AuthProvider>
       </body>
