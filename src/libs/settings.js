@@ -160,7 +160,7 @@ export const siteLauyout = {
     ],
     landingPageTag: 'virtual property expo',
     presidentSection: {
-        image: '/assets/president_duma_boko_img_001.jpg',
+        image: '/assets/president_duma_boko_img_001.webp',
         text: {
             title: `Building the Future 
             of Southern Africa`,

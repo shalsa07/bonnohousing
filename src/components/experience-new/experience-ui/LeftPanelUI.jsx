@@ -17,7 +17,7 @@ function _360sBtns({ data, handle360Click }) {
   return (
     <>
       {data?._360sImages?.sort((a, b) => a.name.localeCompare(b.name)).map((i, index) =>
-        <div onClick={() => handleActive360Click(index, i)} key={index} className={`_360_btns flex ${active360 == index ? 'bg-gray-300' : 'bg-white'} items-center justify-start cursor-pointer shadow w-full px-2 py-1 gap-1 h-14 relative`}>
+        <div onClick={() => handleActive360Click(index, i)} key={index} className={`_360_btns flex ${active360 == index ? 'bg-gray-300' : 'bg-white'} items-center justify-start cursor-pointer shadow w-full px-2 py-1 gap-1 md:min-h-14 min-h-10 relative`}>
           {i?.url?.length > 0 ? <img className='w-4/5 md:max-w-1/2 h-full rounded-md' src={i?.url} alt="360 images" /> : <ImageNotFoundPlaceholder />}
           <div className='flex w-1/5 md:w-1/2 items-center justify-start relative'>
             <span className={`hidden ml-1 md:flex w-full font-bold text-xl ${active360 == index ? `border-b-4 ${settings.luyariBlueBorder}` : 'border-none'}`}>360</span>
@@ -80,7 +80,7 @@ function HideLevelBtns({ data, handleHideLevelClick, handleResetLevels }) {
             className={`hide-level-btn flex relative items-center justify-start cursor-pointer shadow rounded-r-full w-32 md:w-48 min-h-10 ${isHidden ? 'bg-gray-200' : 'bg-white'}`}
           >
             <div className='flex md:max-w-32 w-28 h-full items-center'>
-              <span className='ml-2 h-fit font-bold uppercase text-[10px] md:text-xs'>
+              <span className='ml-2 h-fit text-wrap font-bold uppercase'>
                 {i?.name}
               </span>
             </div>
@@ -114,7 +114,7 @@ function BtnType1({ data, fn }) {
   // console.log('BtnType1:',data)
   return (
     <div onClick={() => fn(data)} className={`flex shadow items-center cursor-pointer font-medium justify-start bg-white min-h-10 w-full md:w-[calc(100%-30px)] ${settingsBtns.luyariTextBlue} hover:bg-gray-300 hover:text-gray-400`}>
-      <span className='ml-2 text-[10px] md:text-sm font-bold uppercase leading-3'>
+      <span className='ml-2 font-bold uppercase leading-3'>
         {data}
       </span>
     </div>
@@ -124,7 +124,7 @@ function BtnType1({ data, fn }) {
 function BtnType2({ data, fn }) {
   return (
     <div onClick={() => fn(data)} className={`flex shadow items-center cursor-pointer font-medium justify-start bg-white min-h-10 w-full md:w-[calc(100%-30px)] ${settingsBtns.luyariTextBlue} hover:bg-gray-300 hover:text-gray-400`}>
-      <span className='ml-2 text-[10px] font-bold uppercase leading-3'>
+      <span className='ml-2 font-bold uppercase leading-3'>
         {data}
       </span>
     </div>
@@ -160,7 +160,7 @@ export default function LeftPanelUi({ data, handleHideLevelClick, handleResetLev
             scrollbar-width: none;
           }
         `}</style>
-        <div className='flex bar flex-col w-full h-full gap-1 overflow-y-auto no-scrollbar'>
+        <div className='flex bar tex-xs flex-col w-full h-full gap-1 overflow-y-auto no-scrollbar text-wrap text-[10px] md:text-xs'>
           {experienceState?._360Mode
             ? data?._360sImages?.length > 0 && (
               <div className='flex flex-col w-16 md:w-32 h-12 gap-1'>

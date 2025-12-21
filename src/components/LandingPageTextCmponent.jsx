@@ -58,7 +58,13 @@ function LinkCard({ i }) {
     return (
         <div className='flex relative items-center justify-center w-full md:w-1/3 md:h-full h-[60vh] overflow-hidden '>
             <img className='h-full hover:brightness-50 brightness-75 duration-300 ease-linear w-full object-cover' src={i?.renders?.[0]?.url} alt="building hero image" />
-            <Link href={`/projects/${i?._id}`} className={`absolute bottom-5 uppercase items-center justify-center tracking-tight text-center font-extralight text-sm w-60 mx-auto z-10 text-gray-800 py-3 cursor-pointer rounded-full ${settings.bonnoBlue}`}>explore</Link>
+            <Link href={`/projects/${i?._id}`} className={`flex absolute bottom-4 md:bottom-10 uppercase items-center justify-center tracking-tight font-extralight text-sm mx-auto z-10 text-gray-300 cursor-pointer rounded-full md:w-60 w-40 h-12 text-center ${settings.bonnoBlue}`}>
+                explore
+            </Link>
+
+            {/* <Link href={`/projects/${i?._id}`} className={`absolute bottom-5 uppercase items-center justify-center tracking-tight text-center font-extralight text-sm w-fit mx-auto z-10 text-gray-800 cursor-pointer rounded-full ${settings.bonnoBlueFaint}`}>
+                <RollOverStateWrapper src={{ hover: './assets/thumbnal_explore_btn_ov.png', default: './assets/thumbnal_explore_btn_ov.png' }} />
+            </Link> */}
         </div>
     )
 }
@@ -92,11 +98,11 @@ export default function LandingPageTextCmponent() {
                             <div className='max-w-[477px] h-full px-5 flex flex-col justify-center items-start md:items-center'>
                                 <h1 className="text-[32px] md:text-6xl lg:text-4xl italic uppercase tracking-tight text-wrap leading-none font-light text-white text-left drop-shadow-lg">
                                     {/* {siteLauyout.presidentSection.text.title} */}
-                                    <h1>
+                                    <div>
                                         <span className="font-extralight">BUILDING BLOCKS FOR </span>
                                         <span className={`font-bold ${settings.bonnoTextBlue}`}>HOME OWNERSHIP AND </span>
                                         <span className={`font-bold ${settings.bonnoTextGreen}`}>COMMUNITY GROWTH...</span>
-                                    </h1>
+                                    </div>
                                 </h1>
                                 <p className="flex flex-col mt-1 items-start md:text-xl text-wrap text-white/90 mb-4 max-w-2xl mx-auto drop-shadow-md gap-3">
                                     {/* {siteLauyout.presidentSection.text.body} */}
@@ -118,12 +124,13 @@ export default function LandingPageTextCmponent() {
                     {/* --- SOCIALS SECTION --- */}
                     <div className='flex fixed z-20 flex-col right-0 top-0 bottom-0 my-auto h-fit w-fit'>
                         `{socialsButtons.map((social, index) => (
-                            <div className={`flex flex-col w-16 h-16 items-center justify-center ${settings.bonnoHoverBlue} transition-colors duration-200 ease-linear ${settings.bonnoGreen}`} key={index}>
-                                <Link className='text-white text-3xl' href={social.link}>
+                            <div className={`flex flex-col md:w-16 w-12 md:h-16 h-12 items-center justify-center ${settings.bonnoHoverBlue} transition-colors duration-200 ease-linear ${settings.bonnoGreen}`} key={index}>
+                                <Link className='text-white text-xl md:text-3xl' href={social.link}>
                                     {social?.icon}
                                 </Link>
                             </div>
                         ))}`
+
                         {/* `{siteLauyout.socialsLinks.map((social, index) => (
                             <div className='flex flex-col w-fit h-fit items-center justify-center' key={index}>
                                 <RollOverStateWrapper src={{ hover: social.hover, default: social.default }} />
@@ -137,7 +144,7 @@ export default function LandingPageTextCmponent() {
                 </header >
 
                 {/* --- INTRO SECTION --- */}
-                <section section className="py-12 px-5 bg-white " >
+                <section className="py-12 px-5 bg-white " >
                     <div className="flex flex-col gap-3 w-ful px-2 md:w-[460px] mx-auto text-center">
                         <h2 className="text-3xl md:text-3xl italic text-wrap font-bold uppercase tracking-widest w-full">
                             <span className={`font-bold ${settings.bonnoTextBlue}`}>Vision.</span> <span className={`font-bold ${settings.bonnoTextGreen}`}>Mission.</span> <span className={`font-bold text-gray-700`}>Vision.</span>
@@ -153,15 +160,14 @@ export default function LandingPageTextCmponent() {
                 </section >
 
                 {/* --- CARUSAL SECTION --- */}
-                < section className="bg-neutral-50" >
+                <section className="bg-neutral-50" >
                     {/* Tier 1: Zambia */}
-                    <div div id="residential" className="flex relative h-[80vh] overflow-x-scroll" >
+                    <div id="residential" className="flex relative h-[80vh] overflow-x-scroll" >
                         {siteLauyout?.conecptSection?.images?.map((i, index) =>
                             <div className='flex relative items-center justify-center min-w-[100vw] h-full' key={index}>
                                 <img className='w-full brightness-75 h-full object-cover' src={i} alt="" />
                             </div>
-                        )
-                        }
+                        )}
                     </div >
                 </section >
 
