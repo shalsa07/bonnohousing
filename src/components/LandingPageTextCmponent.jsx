@@ -56,9 +56,9 @@ const socialsButtons = [
 
 function LinkCard({ i }) {
     return (
-        <div className='flex relative items-center justify-center w-full md:w-1/3 h-full overflow-hidden '>
-            <img className='h-full hover:brightness-50 brightness-75 duration-300 ease-linear w-auto object-cover' src={i?.renders?.[0]?.url} alt="building hero image" />
-            <Link href={`/projects/${i?._id}`} className={`absolute bottom-5 uppercase items-center justify-center text-center font-extralight text-sm w-60 mx-auto z-10 text-gray-800 py-3 cursor-pointer rounded-full ${settings.bonnoBlue}`}>explore</Link>
+        <div className='flex relative items-center justify-center w-full md:w-1/3 md:h-full h-[60vh] overflow-hidden '>
+            <img className='h-full hover:brightness-50 brightness-75 duration-300 ease-linear w-full object-cover' src={i?.renders?.[0]?.url} alt="building hero image" />
+            <Link href={`/projects/${i?._id}`} className={`absolute bottom-5 uppercase items-center justify-center tracking-tight text-center font-extralight text-sm w-60 mx-auto z-10 text-gray-800 py-3 cursor-pointer rounded-full ${settings.bonnoBlue}`}>explore</Link>
         </div>
     )
 }
@@ -167,7 +167,7 @@ export default function LandingPageTextCmponent() {
 
                 {/* --- BUILDING SELECTOR --- */}
                 <section>
-                    < div id="residential" className="flex md:flex-row flex-col relative h-[70vh] md:h-[calc(100vh-144px)] mb-16" >
+                    < div id="residential" className="flex md:flex-row flex-col relative h-fit md:h-[calc(100vh-144px)] mb-16" >
                         {buildingDB?.map((i, index) =>
                             <LinkCard key={index} i={i} />
                         )}
