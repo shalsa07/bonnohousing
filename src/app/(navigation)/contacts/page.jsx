@@ -1,8 +1,14 @@
+'use client';
+
+import { useState } from 'react';
 import PagesWrapper from '@/components/PagesWrapper';
 import ContactForm from '@/components/forms/ContactForm';
+import ContactOptionsModal from '@/components/modals/ContactOptionsModal';
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 
 export default function ContactsPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const phoneNumber = '+267 75 696 516';
   return (
     <PagesWrapper>
       <div className="flex flex-col lg:flex-row h-full w-full">
@@ -34,9 +40,12 @@ export default function ContactsPage() {
                 </div>
                 <div>
                   <h3 className="font-medium mb-1">Phone</h3>
-                  <a href="tel:+26774308319" className="text-blue-100 hover:text-white transition-colors">
-                    +267 75 696 516
-                  </a>
+                  <button 
+                    onClick={() => setIsModalOpen(true)}
+                    className="text-blue-100 hover:text-white transition-colors text-left focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
+                  >
+                    {phoneNumber}
+                  </button>
                 </div>
               </div>
 
@@ -100,6 +109,13 @@ export default function ContactsPage() {
           </div>
         </div>
       </div>
+
+      {/* Contact Options Modal */}
+      <ContactOptionsModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        phoneNumber={phoneNumber}
+      />
     </PagesWrapper>
   );
 }
