@@ -327,6 +327,8 @@ export default function EditProjectPage({ params }) {
     );
   }
 
+  console.log('projects-page:',building)
+
   return (
     <AdminPageWrapper title={building.buildingTitle || 'Edit Project'}>
       {/* Header */}

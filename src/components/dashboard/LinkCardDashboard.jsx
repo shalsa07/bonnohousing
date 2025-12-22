@@ -61,7 +61,7 @@ export default function LinkCardDashboard({project,index,onDelete}) {
                         View Project
                     </Link>
                     <div className="flex space-x-2">
-                        <Link href={`/admin/houses/${project?._id}`} className="text-xs h-fit text-neutral-400  tracking-widest mt-2 cursor-pointer text-center capitalize underline font-bold">
+                        <Link href={`/admin/projects/${project?._id}`} className="text-xs h-fit text-neutral-400  tracking-widest mt-2 cursor-pointer text-center capitalize underline font-bold">
                             Edit
                         </Link>
                         {onDelete && (

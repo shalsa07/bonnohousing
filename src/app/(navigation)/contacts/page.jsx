@@ -23,7 +23,7 @@ export default function ContactsPage() {
                 <div>
                   <h3 className="font-medium mb-1">Email</h3>
                   <a href="mailto:info@ppsbluyari.com" className="text-blue-100 hover:text-white transition-colors">
-                    info@ppsbluyari.com
+                    pm@palamoloproperties.com
                   </a>
                 </div>
               </div>
@@ -35,7 +35,7 @@ export default function ContactsPage() {
                 <div>
                   <h3 className="font-medium mb-1">Phone</h3>
                   <a href="tel:+26774308319" className="text-blue-100 hover:text-white transition-colors">
-                    +267 74 308 319
+                    +267 75 696 516
                   </a>
                 </div>
               </div>
@@ -47,7 +47,7 @@ export default function ContactsPage() {
                 <div>
                   <h3 className="font-medium mb-1">Location</h3>
                   <p className="text-blue-100">
-                    Botswana & Zambia
+                    Botswana
                   </p>
                 </div>
               </div>
@@ -77,7 +77,7 @@ export default function ContactsPage() {
 
             {/* Additional Information */}
             <div className="mt-12 pt-8 border-t border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Why Choose PPSB Luyari?</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Why Choose PalaMolo Property Services Botswana?</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600">
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2">Quality Construction</h4>

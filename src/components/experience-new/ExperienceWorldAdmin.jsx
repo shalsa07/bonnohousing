@@ -213,7 +213,7 @@ export default function ExperienceWorldAdmin({data}) {
 
   // console.log('ExperienceWorld:',data)
   return (
-    <div className='flex relative w-full h-65vh mt-16'>
+    <div className='flex relative w-full h-[75vh] mt-16'>
       <ExperienceWrapperAdmin data={data} store={store}/>
       <ExperienceUI 
         handle360Click={handle360Click} 
