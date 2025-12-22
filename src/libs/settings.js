@@ -5,6 +5,7 @@ export const settings = {
     bonnoTextGreen: 'text-[#79A627]',
     bonnoBlue: 'bg-[#0099FF]',
     bonnoHoverBlue: 'hover:bg-[#0099FF]',
+    bonnoHoverGreen: 'hover:bg-[#79A627]',
     bonnoGreen: 'bg-[#79A627]',
     bonnoBlueFaint: 'bg-[#0099FF]/75',
     bonnoGreenFaint: 'bg-[#79A627]/75',

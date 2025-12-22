@@ -6,6 +6,7 @@ import ExperienceContextProvider from "@/libs/contextProviders/experienceContext
 import WhatsAppComponent from "@/components/WhatsAppComponent";
 import AuthProvider from "@/libs/AuthProvider";
 import SiteContextProvider from "@/libs/contextProviders/siteContext";
+import ChatComponent from "@/components/ChatComponent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
               <Footer />
               {children}
               {/* <WhatsAppComponent/> */}
+              <ChatComponent/>
             </ExperienceContextProvider>
           </SiteContextProvider>
         </AuthProvider>
