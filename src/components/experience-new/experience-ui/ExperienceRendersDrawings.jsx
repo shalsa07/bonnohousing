@@ -14,7 +14,7 @@ export default function ExperienceRendersDrawings({ data, options, images = {}, 
     const plans = data?.drawings?.find(({ name }) => name == 'Plans')?.url || ''
     const elevations = data?.drawings?.find(({ name }) => name == 'Elevations')?.url || ''
 
-    console.log(data?.hero?.heroImages?.[0]?.url)
+    // console.log(data?.hero?.heroImages?.[0]?.url)
 
     return (
         <div className='absolute top-0 left-0 inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 md:p-8 text-stone-900'>

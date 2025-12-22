@@ -11,7 +11,7 @@ export default function BuyPage() {
     return (
         <>
             <PagesWrapper>
-                <div className="flex flex-col items-center justify-center h-full w-full p-8 bg-gradient-to-br from-blue-50 to-white">
+                <div className="flex flex-col items-center overflow-y-auto h-full w-full p-8 bg-gradient-to-br from-blue-50 to-white">
                     <div className="max-w-3xl text-center">
                         <h1 className="text-5xl font-light text-gray-900 mb-6">
                             Buy Your Dream Home

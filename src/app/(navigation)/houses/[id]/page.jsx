@@ -55,7 +55,7 @@ export default async function page({ params }) {
   // const data = dataFetched
   const data = dataFetched[0]
 
-  console.log('project data:', data)
+  // console.log('project data:', data)
 
   // Handle case where building is not found
   if (!data) {

@@ -18,12 +18,12 @@ const navItems = [
   { name: 'Dashboard', href: '/admin', icon: MdDashboard },
   { name: 'Projects', href: '/admin/projects', icon: MdFolder },
   { name: 'Developments', href: '/admin/developments', icon: MdBusiness },
-  { name: 'Products', href: '/admin/products', icon: MdShoppingCart },
+  // { name: 'Products', href: '/admin/products', icon: MdShoppingCart },
   { name: 'Users', href: '/admin/users', icon: MdPeople },
   { name: 'Media Library', href: '/admin/media', icon: MdPhotoLibrary },
   { name: 'Analytics', href: '/admin/analytics', icon: MdAnalytics },
   { name: 'Settings', href: '/admin/settings', icon: MdSettings },
-  { name: 'Storage Migration', href: '/admin/migrate-storage', icon: MdSwapHoriz },
+  // { name: 'Storage Migration', href: '/admin/migrate-storage', icon: MdSwapHoriz },
 ];
 
 export default function AdminSidebar() {

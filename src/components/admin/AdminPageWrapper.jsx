@@ -10,7 +10,7 @@ export default function AdminPageWrapper({ children, title, showBreadcrumb = tru
       <AdminSidebar />
       
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 h-[calc(100%-144px)] mt-20 overflow-y-auto">
         <div className="p-6">
           {showBreadcrumb && <Breadcrumb customTitle={title} />}
           {children}

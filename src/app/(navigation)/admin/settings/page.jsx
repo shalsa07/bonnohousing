@@ -78,42 +78,44 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="admin-settings h-fit p-8 max-w-6xl mx-auto">
-      <div className="flex items-center gap-3 mb-6">
-        <MdSettings className="text-3xl text-blue-600" />
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Site Layout Management</h1>
-          <p className="text-sm text-gray-600">Configure site logos, navigation links, and content sections</p>
+    <div className="admin-settings h-screen p-8 max-w-6xl mx-auto">
+      <div className='w-full max-w-6xl mx-auto h-[calc(100%-144px)] mt-20'>
+        <div className="flex items-center gap-3 mb-6">
+          <MdSettings className="text-3xl text-blue-600" />
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Site Layout Management</h1>
+            <p className="text-sm text-gray-600">Configure site logos, navigation links, and content sections</p>
+          </div>
         </div>
-      </div>
 
-      <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg mb-6">
-        <p className="text-sm mb-2">
-          <strong>Firebase Storage Paths:</strong>
-        </p>
-        <ul className="text-sm list-disc list-inside space-y-1">
-          <li>
-            <strong>Site assets</strong> (navbar logo, landing page logo, footer logos, president section, concept section):
-            <code className="bg-blue-100 px-1 rounded ml-1">bonnohousing/site/</code>
-          </li>
-          <li>
-            <strong>Building/house images</strong>:
-            <code className="bg-blue-100 px-1 rounded ml-1">bonnohousing/houses/</code>
-          </li>
-        </ul>
-        <p className="text-sm mt-2">
-          Upload images to Firebase Storage in the appropriate folder, then paste the download URL into the form fields below.
-        </p>
-      </div>
+        <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg mb-6">
+          <p className="text-sm mb-2">
+            <strong>Firebase Storage Paths:</strong>
+          </p>
+          <ul className="text-sm list-disc list-inside space-y-1">
+            <li>
+              <strong>Site assets</strong> (navbar logo, landing page logo, footer logos, president section, concept section):
+              <code className="bg-blue-100 px-1 rounded ml-1">bonnohousing/site/</code>
+            </li>
+            <li>
+              <strong>Building/house images</strong>:
+              <code className="bg-blue-100 px-1 rounded ml-1">bonnohousing/houses/</code>
+            </li>
+          </ul>
+          <p className="text-sm mt-2">
+            Upload images to Firebase Storage in the appropriate folder, then paste the download URL into the form fields below.
+          </p>
+        </div>
 
-      {siteLayoutData && (
-        <SiteLayoutForm
-          initialData={siteLayoutData}
-          onSave={handleSave}
-        />
-      )}
-      
-      <DataMigrationButton />
+        {siteLayoutData && (
+          <SiteLayoutForm
+            initialData={siteLayoutData}
+            onSave={handleSave}
+          />
+        )}
+        
+        {/* <DataMigrationButton /> */}
+      </div>
     </div>
   );
 }

@@ -289,7 +289,7 @@ export default function EditProjectPage({ params }) {
     }
   };
 
-  console.log(fileStates)
+  // console.log(fileStates)
 
   if (loading) {
     return (

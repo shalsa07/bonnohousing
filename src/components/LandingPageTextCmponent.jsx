@@ -68,7 +68,7 @@ function LinkCard({ i,index }) {
                     src={i?.renders?.[0]?.url} alt="building hero image" 
                 />
                     <Link 
-                        href={`/projects/${i?._id}`} 
+                        href={`/houses/${i?._id}`} 
                         className={`${onHover ?'flex' : 'hidden'} transition-all duration-300 ease-linear absolute uppercase items-center justify-center tracking-tight m-auto font-extralight text-sm z-10 text-gray-300 cursor-pointer rounded-full md:w-60 w-40 h-12 text-center ${settings.bonnoBlue}`}
                     >
                         explore

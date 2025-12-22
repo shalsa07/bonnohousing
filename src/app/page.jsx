@@ -20,6 +20,8 @@ export default async function Home() {
     console.error("Failed to fetch buildings", e);
   }
 
+  // console.log('page:',buildings)
+
   return (
     <main className="main-wrapper h-screen flex w-screen flex-col overflow-y-scroll">
       <LandingPageCarousel />
