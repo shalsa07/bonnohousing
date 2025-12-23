@@ -15,6 +15,7 @@ import {
   IoLogoTwitter,
   IoCheckmark
 } from 'react-icons/io5';
+import { settings } from '@/libs/settings';
 
 /**
  * ShareComponent
@@ -108,21 +109,20 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
       {/* Share Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="flex items-center gap-2 p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all duration-200 shadow-md hover:shadow-lg"
-        aria-label="Share this property"
+        className={`flex items-center gap-2 p-2 rounded-full ${settings.bonnoBlue} text-white hover:bg-blue-500 transition-all duration-200 shadow-md hover:shadow-lg aria-label="Share this property`}
       >
-        <IoShareSocialOutline className="text-2xl" />
+        <IoShareSocialOutline className="text-xl" />
         {/* <span className="font-medium text-sm">Share</span> */}
       </button>
 
       {/* Share Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-fadeIn">
+          <div className="bg-gray-500/85 rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-fadeIn">
             {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-4 right-4 text-gray-50 hover:text-gray-600 transition-colors"
               aria-label="Close"
             >
               <FiX className="text-2xl" />
@@ -130,8 +130,8 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
 
             {/* Header */}
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Share Property</h2>
-              <p className="text-gray-600 text-sm">Share {buildingTitle} with friends and family</p>
+              <h2 className="text-2xl font-bold text-gray-50 mb-2">Share Property</h2>
+              <p className="text-gray-100 text-sm">Share {buildingTitle} with friends and family</p>
             </div>
 
             {/* Copy Link Section */}
@@ -169,7 +169,7 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
 
             {/* Share Options */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
+              <label className="block text-sm font-medium text-gray-50 mb-3">
                 Share via
               </label>
               <div className="grid grid-cols-2 gap-3">

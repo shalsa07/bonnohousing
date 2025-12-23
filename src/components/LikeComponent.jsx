@@ -129,7 +129,7 @@ export default function LikeComponent({ buildingId, initialLikeCount = 0 }) {
       ) : (
         <IoHeartOutline className="text-2xl" />
       )}
-      <span className="absolute text-lg z-10 text-gray-500 -top-2 -right-1 font-medium">
+      <span className="absolute text-lg z-10 text-gray-500 font-bold -top-3 -right-1">
         {likeCount}
       </span>
     </button>
