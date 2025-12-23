@@ -18,8 +18,8 @@ export default function ExperienceModel({ data }) {
         // Standard Web Mode Position
         if (data?.position && !experienceState?.ARMode) {
             const [x, y, z] = data.position.split(',').map(Number)
-            console.log(x,y,z)
-            console.log(data?.position)
+            // console.log(x,y,z)
+            // console.log(data?.position)
             ref.current.position.set(x, y, z)
             ref.current.rotation.set(0, 0, 0) // Reset rotation in non-AR
             ref.current.visible = true

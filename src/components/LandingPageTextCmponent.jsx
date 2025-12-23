@@ -9,6 +9,7 @@ import { settings, siteLauyout } from '@/libs/settings'
 import { buildingDB } from '@/libs/blgDB'
 import Link from 'next/link'
 import RollOverStateWrapper from './RollOverStateWrapper'
+import PresidentCarousel from './PresidentCarousel'
 const socialsCss = `hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear bg-${settings.bonnoGreen} hover:bg-${settings.bonnoBlue}`
 // const socialsCss = 'hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear'
 
@@ -97,6 +98,9 @@ function LinkCard({ i,index }) {
 export default function LandingPageTextCmponent() {
     const { siteState } = useSiteContext()
     const { experienceDispatch } = useExperienceContext()
+
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [autoScrollPaused, setAutoScrollPaused] = useState(false);
     const [buildings, setBuildings] = useState(buildingDB || []); // Initialize with static data or empty array
 
       // Fetch buildings from API
@@ -124,9 +128,31 @@ export default function LandingPageTextCmponent() {
         fetchBuildings();
       }, []);
 
+      // Auto-scroll for hero carousel
+        useEffect(() => {
+          if (autoScrollPaused) return;
+      
+          const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+          }, 5000);
+      
+          return () => clearInterval(interval);
+        }, [autoScrollPaused, heroImages.length]);
+      
+        // Handle manual navigation
+        const goToSlide = (index) => {
+          setCurrentSlide(index);
+          setAutoScrollPaused(true);
+      
+          // Resume auto-scroll after 15 seconds
+          setTimeout(() => {
+            setAutoScrollPaused(false);
+          }, 15000);
+        };
+
     // console.log(siteState)
     return (
-        (!siteState?.landingPageCarouselPopup &&
+        // (!siteState?.landingPageCarouselPopup &&
             <div className='h-100vh flex w-full flex-col'>
                 <div className="font-sans text-neutral-900 bg-white selection:bg-black selection:text-white overflow-y-scroll">
                 </div>
@@ -145,7 +171,8 @@ export default function LandingPageTextCmponent() {
                     <div className='w-full h-full flex flex-col items-center justify-start md:justify-center bg-gray-600/90 z-10'>
                         <div className="flex relative z-10 mt-5 text-center px-6 w-fit h-fit mx-auto flex-col md:flex-row gap-5 ">
                             <div className='w-auto mt-20 md:mt-0 h-full brightness-75'>
-                                <img className='w-auto h-full' src={siteLauyout.presidentSection.image} alt="" />
+                                {/* <img className='w-auto h-full' src={siteLauyout.presidentSection.image} alt="" /> */}
+                                <PresidentCarousel />
                             </div>
                             <div className='max-w-[477px] h-full px-5 flex flex-col justify-center items-start md:items-center'>
                                 <h1 className="text-[32px] md:text-6xl lg:text-4xl italic uppercase tracking-tight text-wrap leading-none font-light text-white text-left drop-shadow-lg">
@@ -163,12 +190,12 @@ export default function LandingPageTextCmponent() {
                                     <span className='text-start text-[12px]'>Our platform connects the Bonno National Housing Programme’s stakeholders — government, investors, developers, and homebuyers through immersive marketing experiences, transparent investment insights, development data dashboard and user-friendly tools.</span>
                                     <span className='text-start italic text-[18px]'>“A digital frontier for property development and ownership”</span>
                                 </p>
-                                <div
-                                    onClick={() => experienceDispatch({ type: ACTIONS_EXPERIENCE.TOGGLE_LOAN_FORM, payload: true })}
+                                <Link
+                                    href="/houses"
                                     className="h-auto w-fit mb-5"
                                 >
-                                    <RollOverStateWrapper src={{ hover: './assets/register_your_interest_btn_off.png', default: './assets/register_your_interest_btn_ov.png' }} />
-                                </div>
+                                    <RollOverStateWrapper src={{ hover: './assets/new_explore_btn_off.png', default: './assets/new_explore_btn_ov.png' }} />
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -208,6 +235,12 @@ export default function LandingPageTextCmponent() {
                         <p className="text-[12px] italic leading-relaxed text-neutral-600">
                             <span className={`font-bold ${settings.bonnoTextBlue}`}>“We don’t just build structures;</span> <span className={`font-bold ${settings.bonnoTextGreen}`}>we create ecosystems where communities thrive and economies grow.” </span>
                         </p>
+                        <div
+                            onClick={() => experienceDispatch({ type: ACTIONS_EXPERIENCE.TOGGLE_LOAN_FORM, payload: true })}
+                            className="h-auto w-fit mb-5"
+                        >
+                            <RollOverStateWrapper src={{ hover: './assets/register_your_interest_btn_off.png', default: './assets/register_your_interest_btn_ov.png' }} />
+                        </div>
                     </div>
                 </section >
 
@@ -231,7 +264,13 @@ export default function LandingPageTextCmponent() {
                         )}
                     </div >
                 </section >
+                <section>
+                    < div id="residential" className="flex md:flex-row flex-col relative h-fit md:h-[calc(100vh-144px)] mb-16" >
+                        <img className='w-full h-auto' src="/assets/map_location.jpg" alt="" />
+                    </div >
+                </section >
 
             </div >
-        ))
+        )
+    // )
 }

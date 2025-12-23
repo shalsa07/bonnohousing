@@ -14,6 +14,7 @@ import { buildingDB } from '@/libs/blgDB';
 // Direct database access for Server Component
 import clientPromise from '@/libs/db';
 import { ObjectId } from 'mongodb';
+import { settings } from '@/libs/settings';
 
 const getData = async (id) => {
   try {
@@ -67,7 +68,7 @@ export default async function page({ params }) {
             <p className='text-gray-600 mb-4'>The requested building could not be found.</p>
             <a
               href='/houses'
-              className='inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
+              className={`inline-block px-4 py-2 ${settings.bonnoGreen} text-white rounded-lg ${settings.bonnoHoverBlue} transition-colors`}
             >
               Back to Projects
             </a>
