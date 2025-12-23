@@ -232,17 +232,34 @@ export default function ChatOptionsModal({ isOpen, onClose, phoneNumber }) {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900 mb-1">Call Us</h3>
-                  <p className="text-sm text-gray-600">Contact via phone or WhatsApp</p>
+                  <p className="text-sm text-gray-600">Make a phone call</p>
                 </div>
               </div>
             </button>
+
+            <a
+              href={`https://wa.me/${formattedPhone}?text=Hello%2C%20I%27m%20interested%20in%20your%20properties`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full p-6 rounded-xl border-2 border-gray-200 hover:border-green-500 hover:shadow-lg transition-all duration-200 text-left group block"
+            >
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <IoLogoWhatsapp className="text-2xl text-white" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-1">WhatsApp</h3>
+                  <p className="text-sm text-gray-600">Chat with us on WhatsApp</p>
+                </div>
+              </div>
+            </a>
 
             <button
               onClick={() => setStage('message')}
               className="w-full p-6 rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all duration-200 text-left group"
             >
               <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                   <IoChatbubblesOutline className="text-2xl text-white" />
                 </div>
                 <div>

@@ -45,12 +45,12 @@ export default function ExperienceSummaryWrapper({ data, options }) {
                     )}
                 </div>
                 <div className={`flex md:w-1/3 w-1/2 flex-col justify-center h-full md:mt-[2px]`}>
-                    <div className={`uppercase flex md:h-1/2 h-20 items-center text-xs text-center justify-center ${settings.luyariBlue}`}>
+                    <div className={`uppercase flex md:h-1/2 h-20 items-center text-xs text-center justify-center  ${settings.bonnoBlue}`}>
                         {data?.area ? `${data.area} sqm` : 'Area N/A'}
                     </div>
                     <div
                         onClick={() => experienceDispatch({ type: ACTIONS_EXPERIENCE.TOGGLE_LOAN_FORM, payload: true })}
-                        className={`uppercase md:h-1/2 h-20 text-gray-500 text-center text-xs flex items-center justify-center bg-white cursor-pointer hover:bg-gray-100 transition-colors`}
+                        className={`uppercase md:h-1/2 h-20 text-center text-xs text-gray-50 flex items-center justify-center bg-white- cursor-pointer hover:bg-gray-400 transition-colors ${settings.bonnoGreen}`}
                     >
                         enquire
                     </div>

@@ -18,7 +18,7 @@ const NavLinks = ({ links, className, linkClassName, onItemClick }) => (
   <>
     {links?.map((link, index) => (
       <div className={`flex items-center ${index == 0 && 'border-l-1'} border-r-1 h-full border-white/35 `} key={index}>
-        <Link onClick={onItemClick} className={`${link == 'buy' && settings.bonnoTextBlue || link == 'rent' && settings.bonnoTextBlue} ${settings.bonnoHoverTextGreen} ${settings.bonnoHoverBorderGreen} hover:border-b-2 outline-offset-[16px] flex uppercase items-center`} key={link} href={link === 'home' ? '/' : `/${createSlug(link)}`}>
+        <Link onClick={onItemClick} className={`${link == 'buy' && settings.bonnoTextBlue || link == 'rent' && settings.bonnoTextBlue} ${settings.bonnoHoverTextGreen} ${settings.bonnoHoverBorderGreen} hover:border-b-6 outline-offset-[16px] h-full flex uppercase items-center`} key={link} href={link === 'home' ? '/' : `/${createSlug(link)}`}>
           <span className='text-nowrap px-4'>{link}</span>
         </Link>
       </div>
@@ -57,7 +57,7 @@ export default function Navbar() {
   // console.log('Navbar:',user)
 
   return (
-    <nav className={`navbar-wrapper flex text-white fixed ${pathname?.length > 2 && 'from-gray-400 bg-gradient-to-b'} top-0 mx-auto z-20 justify-between w-full h-20 items-start`}>
+    <nav className={`navbar-wrapper flex text-white fixed ${pathname?.length > 2 && 'from-gray-800 bg-gradient-to-b'} top-0 mx-auto z-20 justify-between w-full h-20 items-start`}>
       <div className='absolute bottom-0 w-full border-white/20 border-1 border-b'></div>
 
       {/* Logo */}
@@ -90,7 +90,7 @@ export default function Navbar() {
         // </div>
         <div 
           onClick={() => setCloseBtnState(!closeBtnState)}
-          className={`close-btn flex font-bold text-xs mt-2 shadow uppercase absolute z-20 ${settings.bonnoBlue} hover:bg-gray-500 cursor-pointer top-0 w-fit pl-6 pr-10 rounded-l-full min-h-12 items-center justify-center ${session?.user ? 'right-28' : 'right-0'} ${closeBtnState ? 'mr-[70px]' : 'mr-0'}`}
+          className={`close-btn flex font-bold text-xs mt-2 shadow uppercase absolute z-20 ${settings.bonnoBlue} hover:bg-gray-400 cursor-pointer top-0 w-fit pl-6 pr-10 rounded-l-full min-h-12 items-center justify-center ${session?.user ? 'right-28' : 'right-0'} ${closeBtnState ? 'mr-[70px]' : 'mr-0'}`}
         >
           open
         </div>
