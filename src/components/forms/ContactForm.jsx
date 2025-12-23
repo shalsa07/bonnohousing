@@ -97,7 +97,9 @@ export default function ContactForm({ onSuccess }) {
             if (response.ok) {
                 setSubmitStatus({
                     type: 'success',
-                    message: 'Thank you for your message! We\'ll get back to you soon.'
+                    message: data.development 
+                        ? '✓ Form submitted (email logged to console - SMTP not configured)' 
+                        : '✓ Email sent successfully! Thank you for your message. We\'ll get back to you soon.'
                 });
                 // Reset form
                 setFormData({
@@ -109,13 +111,22 @@ export default function ContactForm({ onSuccess }) {
                 });
                 if (onSuccess) onSuccess();
             } else {
-                throw new Error(data.error || 'Failed to send message');
+                // Show detailed error message from API
+                const errorMessage = data.details 
+                    ? `${data.error}: ${data.details}${data.hint ? `\n${data.hint}` : ''}`
+                    : data.error || 'Failed to send message';
+                
+                throw new Error(errorMessage);
             }
         } catch (error) {
             console.error('Form submission error:', error);
+            
+            // Display the actual error message, including any hints
+            const errorMsg = error.message || 'Failed to send message. Please try again later.';
+            
             setSubmitStatus({
                 type: 'error',
-                message: 'Failed to send message. Please try again later.'
+                message: errorMsg
             });
         } finally {
             setLoading(false);
@@ -239,7 +250,7 @@ export default function ContactForm({ onSuccess }) {
                             : 'bg-red-50 text-red-800 border border-red-200'
                         }`}
                 >
-                    {submitStatus.message}
+                    <pre className="whitespace-pre-wrap font-sans text-sm">{submitStatus.message}</pre>
                 </div>
             )}
 

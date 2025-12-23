@@ -19,22 +19,96 @@ export async function POST(request) {
             );
         }
 
-        // Create transporter with SMTP settings
-        const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || 'smtp.gmail.com',
-            port: parseInt(process.env.SMTP_PORT || '587'),
-            secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASS,
-            },
+        // Check if SMTP is configured
+        const smtpHost = process.env.EMAIL_SERVER_HOST || process.env.SMTP_HOST;
+        const smtpPort = process.env.EMAIL_SERVER_PORT || process.env.SMTP_PORT;
+        const smtpUser = process.env.EMAIL_SERVER_USER || process.env.SMTP_USER;
+        const smtpPass = process.env.EMAIL_SERVER_PASSWORD || process.env.SMTP_PASS;
+
+        // Log configuration status (without exposing sensitive data)
+        console.log('SMTP Configuration Check:', {
+            host: smtpHost ? '✓ Configured' : '✗ Missing',
+            port: smtpPort ? '✓ Configured' : '✗ Missing',
+            user: smtpUser ? '✓ Configured' : '✗ Missing',
+            pass: smtpPass ? '✓ Configured' : '✗ Missing',
         });
 
+        if (!smtpHost || !smtpUser || !smtpPass) {
+            const missingVars = [];
+            if (!smtpHost) missingVars.push('EMAIL_SERVER_HOST');
+            if (!smtpUser) missingVars.push('EMAIL_SERVER_USER');
+            if (!smtpPass) missingVars.push('EMAIL_SERVER_PASSWORD');
+
+            console.error('SMTP Configuration Error: Missing environment variables:', missingVars);
+
+            // In development, log the email content instead of failing
+            if (process.env.NODE_ENV === 'development') {
+                console.log('\n=== EMAIL WOULD BE SENT (Development Mode) ===');
+                console.log('From:', formData.email);
+                console.log('Type:', type);
+                console.log('Data:', JSON.stringify(formData, null, 2));
+                console.log('===========================================\n');
+
+                return NextResponse.json({
+                    success: true,
+                    message: 'Email logged to console (SMTP not configured)',
+                    development: true,
+                });
+            }
+
+            return NextResponse.json(
+                {
+                    error: 'SMTP not configured',
+                    details: `Missing environment variables: ${missingVars.join(', ')}`,
+                    hint: 'Please configure SMTP settings in .env.local file',
+                },
+                { status: 503 }
+            );
+        }
+
+        // Create transporter with SMTP settings
+        const transporterConfig = {
+            host: smtpHost,
+            port: parseInt(smtpPort || '587'),
+            secure: smtpPort === '465', // true for 465, false for other ports
+            auth: {
+                user: smtpUser,
+                pass: smtpPass,
+            },
+        };
+
+        console.log('Creating SMTP transporter with config:', {
+            host: smtpHost,
+            port: transporterConfig.port,
+            secure: transporterConfig.secure,
+            user: smtpUser?.substring(0, 3) + '***', // Partially masked
+        });
+
+        const transporter = nodemailer.createTransport(transporterConfig);
+
         // Verify transporter configuration
-        await transporter.verify();
+        try {
+            await transporter.verify();
+            console.log('✓ SMTP connection verified successfully');
+        } catch (verifyError) {
+            console.error('SMTP Verification Failed:', {
+                message: verifyError.message,
+                code: verifyError.code,
+                command: verifyError.command,
+            });
+
+            return NextResponse.json(
+                {
+                    error: 'SMTP connection failed',
+                    details: verifyError.message,
+                    hint: 'Please check your SMTP credentials and server settings',
+                },
+                { status: 503 }
+            );
+        }
 
         const adminEmail = process.env.ADMIN_EMAIL || 'info@ppsbluyari.com';
-        const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
+        const fromEmail = process.env.EMAIL_FROM || process.env.SMTP_FROM || smtpUser;
 
         let adminEmailContent = '';
         let userEmailContent = '';
@@ -57,21 +131,36 @@ export async function POST(request) {
         }
 
         // Send email to admin
-        await transporter.sendMail({
-            from: fromEmail,
-            to: adminEmail,
-            subject: subject,
-            html: adminEmailContent,
-        });
+        try {
+            console.log(`Sending admin email to: ${adminEmail}`);
+            await transporter.sendMail({
+                from: fromEmail,
+                to: adminEmail,
+                subject: subject,
+                html: adminEmailContent,
+            });
+            console.log('✓ Admin email sent successfully');
+        } catch (mailError) {
+            console.error('Failed to send admin email:', mailError);
+            throw new Error(`Failed to send admin email: ${mailError.message}`);
+        }
 
         // Send acknowledgment email to user
         if (formData.email) {
-            await transporter.sendMail({
-                from: fromEmail,
-                to: formData.email,
-                subject: 'Thank you for contacting PPSB Luyari',
-                html: userEmailContent,
-            });
+            try {
+                console.log(`Sending acknowledgment email to: ${formData.email}`);
+                await transporter.sendMail({
+                    from: fromEmail,
+                    to: formData.email,
+                    subject: 'Thank you for contacting PPSB Luyari',
+                    html: userEmailContent,
+                });
+                console.log('✓ User acknowledgment email sent successfully');
+            } catch (mailError) {
+                console.error('Failed to send user email:', mailError);
+                // Don't fail the whole request if user email fails
+                console.warn('Admin email was sent, but user acknowledgment failed');
+            }
         }
 
         return NextResponse.json({
@@ -80,9 +169,18 @@ export async function POST(request) {
         });
 
     } catch (error) {
-        console.error('Email sending error:', error);
+        console.error('Email sending error:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name,
+        });
+
         return NextResponse.json(
-            { error: 'Failed to send email', details: error.message },
+            {
+                error: 'Failed to send email',
+                details: error.message,
+                hint: 'Check server logs for more details',
+            },
             { status: 500 }
         );
     }
