@@ -147,8 +147,9 @@ export const siteLauyout = {
     landingNavbarLogo: '/assets/bonno_logo_001.png',
     landingPageLogo: '/assets/bonno_logo_002.png',
     footerLogos: [
+        '/assets/coat_of_arms.png',
         '/assets/botswana_pridemark.png',
-        '/assets/ppsb_logo.png',
+        // '/assets/ppsb_logo.png',
     ],
     heroImages:[
         '/assets/botswana_pridemark.png',

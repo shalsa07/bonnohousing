@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { FaChevronDown, FaArrowRight, FaFacebook, FaWhatsapp, FaThinkPeaks, FaYoutube, FaTiktok, FaInstagram } from 'react-icons/fa'
+import { FaChevronDown, FaArrowRight, FaFacebook, FaWhatsapp, FaThinkPeaks, FaYoutube, FaTiktok, FaInstagram, FaChevronUp } from 'react-icons/fa'
 import { useSiteContext } from '@/libs/contextProviders/siteContext'
 import { useExperienceContext } from '@/libs/contextProviders/experienceContext'
 import { ACTIONS_EXPERIENCE } from '@/libs/contextProviders/reducerExperience'
@@ -10,8 +10,11 @@ import { buildingDB } from '@/libs/blgDB'
 import Link from 'next/link'
 import RollOverStateWrapper from './RollOverStateWrapper'
 import PresidentCarousel from './PresidentCarousel'
+import GoogleLocationComponent from './GoogleLocationComponent'
 const socialsCss = `hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear bg-${settings.bonnoGreen} hover:bg-${settings.bonnoBlue}`
 // const socialsCss = 'hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear'
+
+const mapSource = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11972.094248531412!2d26.808146631612036!3d-23.138156477213528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1eb0a1ef3ab6df67%3A0xe1729cb3f5f12fc2!2sKo%20Digalaseng!5e1!3m2!1sen!2szm!4v1766475931218!5m2!1sen!2szm";
 
 const heroImages = [
     {
@@ -78,11 +81,11 @@ function LinkCard({ i,index }) {
             <div className='flex py-2 flex-col px-4 text-gray-500 flex-1 w-full overflow-hidden gap-2'>
                 <div className='flex h-14 w-full gap-2'>
                     <div className='flex items-start text-7xl h-full flex-1'>
-                        <div className='flex text-7xl h-full flex-1'>{i?.buildingSummary?.['beds']}</div>
+                        <div className='flex text-7xl h-full items-start flex-1'>{i?.buildingSummary?.['beds']}</div>
                         <div className='flex ml-2 h-full flex-wrap text-2xl tracking-tight uppercase leading-5 flex-2'>bedroomed house</div>
                     </div>
                         
-                    <div className='flex items-start h-full tracking-tight uppercase leading-5 text-2xl border-l-2 border-gray-400 pl-4 flex-2'>type 00{index+1}</div>
+                    <div className='flex items-start h-full tracking-tight uppercase leading-5 text-2xl border-l-2 border-gray-400 pl-4 flex-2'>{i?.buildingTitle?.split(':')?.[1]}</div>
                 </div>
                 {/* <h1 className='flex flex-1 uppercase text-2xl'>{i?.buildingTitle}</h1> */}
                 <p className='flex h-12 leading-4 text-sm truncate text-wrap'>{i?.desc}...</p>
@@ -150,9 +153,11 @@ export default function LandingPageTextCmponent() {
           }, 15000);
         };
 
+        const scrollButton = () => {  }
+
     // console.log(siteState)
     return (
-        // (!siteState?.landingPageCarouselPopup &&
+        (!siteState?.landingPageCarouselPopup &&
             <div className='h-100vh flex w-full flex-col'>
                 <div className="font-sans text-neutral-900 bg-white selection:bg-black selection:text-white overflow-y-scroll">
                 </div>
@@ -174,16 +179,22 @@ export default function LandingPageTextCmponent() {
                                 {/* <img className='w-auto h-full' src={siteLauyout.presidentSection.image} alt="" /> */}
                                 <PresidentCarousel />
                             </div>
-                            <div className='max-w-[477px] h-full px-5 flex flex-col justify-center items-start md:items-center'>
+                            <div className='min-w-[320px] max-w-[640px] h-full px-5 flex flex-col justify-center items-start md:items-center'>
                                 <h1 className="text-[32px] md:text-6xl lg:text-4xl italic uppercase tracking-tight text-wrap leading-none font-light text-white text-left drop-shadow-lg">
                                     {/* {siteLauyout.presidentSection.text.title} */}
-                                    <div>
+                                    <div className='flex flex-col'>
+                                        <span className="font-extralight w-full">BUY, INVERT OR RENT </span>
+                                        
+                                        <span className={`font-bold uppercase justify-around ${settings.bonnoTextBlue}`}>A HOUSE IN His Excellency The President’s HOME TOWN </span>
+                                        <span className={`font-bold ${settings.bonnoTextGreen}`}>OF MAHALAPYE...</span>
+                                    </div>
+                                    {/* <div>
                                         <span className="font-extralight">BUILDING BLOCKS FOR </span>
                                         <span className={`font-bold ${settings.bonnoTextBlue}`}>HOME OWNERSHIP AND </span>
                                         <span className={`font-bold ${settings.bonnoTextGreen}`}>COMMUNITY GROWTH...</span>
-                                    </div>
+                                    </div> */}
                                 </h1>
-                                <p className="flex flex-col mt-1 items-start md:text-xl text-wrap text-white/90 mb-4 max-w-2xl mx-auto drop-shadow-md gap-3">
+                                <p className="flex flex-col mt-1 items-start text-wrap text-white/90 mb-4 max-w-3xl mx-auto drop-shadow-md gap-3">
                                     {/* {siteLauyout.presidentSection.text.body} */}
                                     <span className='text-start italic text-[18px]'><span className='font-bold'>President Advocate Duma Gideon Boko's flagship initiative</span> targets 100,000 housing units distributed equally across all constituencies, ensuring dignified living and community development nationwide.</span>
                                     <span className='text-start text-[12px]'>The programme operates through multiple schemes serving income brackets from P4,400 annually to P282,120, including home improvement loans up to P60,000 and turnkey development loans up to P90,000.</span>
@@ -217,9 +228,9 @@ export default function LandingPageTextCmponent() {
                         ))}` */}
                     </div>
 
-                    {/* <div className="absolute z-10 bottom-5 animate-bounce text-white">
-                        <FaChevronDown size={32} />
-                    </div> */}
+                    <div onClick={()=>scrollButton()} className="absolute z-10 left-4 md:bottom-18 bottom-6 animate-bounce text-white">
+                        {false? <FaChevronUp size={32} /> : <FaChevronDown size={32} />}
+                    </div>
                 </header >
 
                 {/* --- INTRO SECTION --- */}
@@ -258,19 +269,25 @@ export default function LandingPageTextCmponent() {
 
                 {/* --- BUILDING SELECTOR --- */}
                 <section>
-                    < div id="residential" className="flex md:flex-row flex-col relative h-fit md:h-[calc(100vh-144px)] mb-16" >
+                    < div id="residential" className="flex md:flex-row flex-col relative h-fit md:h-[calc(100vh-144px)] bg-gray-50" >
                         {buildings?.map((i, index) =>
                             <LinkCard key={index} index={index} i={i} />
                         )}
                     </div >
                 </section >
-                <section>
-                    < div id="residential" className="flex md:flex-row flex-col relative h-fit md:h-[calc(100vh-144px)] mb-16" >
+
+                {/* --- GOOGLE SITE LOCATION SELECTOR --- */}
+                <section className='mb-16'>
+                    {/* < div id="residential" className="flex md:flex-row flex-col relative h-fit mb-16" >
                         <img className='w-full h-auto' src="/assets/map_location.jpg" alt="" />
-                    </div >
+                    </div > */}
+                    <GoogleLocationComponent 
+                        src={mapSource} 
+                        className="h-[105vh] md:h-[100vh] w-full"
+                    />
                 </section >
 
             </div >
         )
-    // )
+    )
 }

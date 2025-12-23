@@ -9,6 +9,7 @@ import { signIn } from 'next-auth/react';
 import SignInBtn from './SignInBtn';
 import { useSiteContext } from '@/libs/contextProviders/siteContext';
 import { ACTIONS_SITE } from '@/libs/contextProviders/reducerSite';
+import Link from 'next/link';
 
 export default function LandingPageCarousel() {
 
@@ -169,11 +170,18 @@ export default function LandingPageCarousel() {
             {siteLauyout.landingPageTag}
           </div>
           <div className='flex relative justify-center items-center h-fit w-full'>
-            <SignInBtn />
+            {/* <SignInBtn />
             <RollOverStateWrapper
               ftn={handleExploreClick}
               src={settings.btnsImages.explore}
-            />
+            /> */}
+            <div 
+
+              onClick={handleExploreClick}
+              className="h-auto w-fit mb-5"
+            >
+                <RollOverStateWrapper src={{ hover: './assets/new_explore_btn_off.png', default: './assets/new_explore_btn_ov.png' }} />
+            </div>
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@ export default function BuyPage() {
                             <div className="bg-white p-6 rounded-lg shadow-md">
                                 <h3 className="text-lg font-medium text-gray-900 mb-3">Prime Locations</h3>
                                 <p className="text-gray-600">
-                                    Properties in desirable locations across Botswana and Zambia.
+                                    Properties in desirable locations across Mahalapye West, Mowana Ward and other areas.
                                 </p>
                             </div>
                             <div className="bg-white p-6 rounded-lg shadow-md">

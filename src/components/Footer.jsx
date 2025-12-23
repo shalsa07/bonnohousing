@@ -11,7 +11,7 @@ export default function Footer() {
         )}
       </div>
 
-      <Link href={'/luyari.com'} className='fixed z-10 cursor-pointer bottom-18 right-1 md:right-2 text-[10px]'>powered by <span className='text-sm tracking-wide'>luyari.</span></Link>
+      <Link href={'/luyari.com'} className='fixed z-10 text-right cursor-pointer bottom-18 right-1 md:right-2 text-[10px]'>developed by <span className='text-xs tracking-wide'>PPSBluyari</span> <br />powered by <span className='text-xs tracking-wide'>luyari.</span></Link>
 
       <div className={`flex w-1/2 h-full ${settings.bonnoGreenFaint} items-end absolute bottom-0 text-xs right-0 flex-1 gap-2 p-4 justify-end`}>
         {siteLauyout?.footerLogos?.map((i, index) => <img key={index} className='w-auto h-full' src={i} alt="" />)}

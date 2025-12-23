@@ -24,7 +24,7 @@ export default async function Home() {
 
   return (
     <main className="main-wrapper h-screen flex w-screen flex-col overflow-y-scroll">
-      {/* <LandingPageCarousel /> */}
+      <LandingPageCarousel />
       <LandingPageTextCmponent initialBuildings={buildings} />
       <LoadApplicationForm />
     </main>
