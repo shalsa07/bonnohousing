@@ -57,7 +57,10 @@ export default function Navbar() {
   // console.log('Navbar:',user)
 
   return (
-    <nav className={`navbar-wrapper flex text-white fixed ${pathname?.length > 2 && 'from-gray-800 bg-gradient-to-b'} top-0 mx-auto z-20 justify-between w-full h-20 items-start`}>
+    <nav 
+      className={`navbar-wrapper flex text-white fixed from-gray-600 bg-gradient-to-b top-0 mx-auto z-20 justify-between w-full h-20 items-start`}
+      // className={`navbar-wrapper flex text-white fixed ${pathname?.length > 2 && 'from-gray-600 bg-gradient-to-b'} top-0 mx-auto z-20 justify-between w-full h-20 items-start`}
+    >
       <div className='absolute bottom-0 w-full border-white/20 border-1 border-b'></div>
 
       {/* Logo */}

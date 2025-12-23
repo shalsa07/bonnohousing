@@ -113,7 +113,7 @@ export default function LikeComponent({ buildingId, initialLikeCount = 0 }) {
       onClick={handleLike}
       disabled={loading}
       className={`
-        flex items-center gap-2 px-4 py-2 rounded-full
+        relative flex items-center gap-2 p-2 rounded-full
         transition-all duration-200
         ${hasLiked 
           ? 'bg-red-500 text-white hover:bg-red-600' 
@@ -125,12 +125,12 @@ export default function LikeComponent({ buildingId, initialLikeCount = 0 }) {
       aria-label={hasLiked ? 'Unlike this building' : 'Like this building'}
     >
       {hasLiked ? (
-        <IoHeart className="text-xl" />
+        <IoHeart className="text-2xl" />
       ) : (
-        <IoHeartOutline className="text-xl" />
+        <IoHeartOutline className="text-2xl" />
       )}
-      <span className="font-medium text-sm">
-        {likeCount} {likeCount === 1 ? 'Like' : 'Likes'}
+      <span className="absolute text-lg z-10 text-gray-500 -top-2 -right-1 font-medium">
+        {likeCount}
       </span>
     </button>
   );

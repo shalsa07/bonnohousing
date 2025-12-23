@@ -10,6 +10,8 @@ import { GoChevronUp } from 'react-icons/go'
 import Block from '@uiw/react-color-block';
 import { IoClose } from 'react-icons/io5'
 import LoadApplicationForm from '@/components/forms/LoadApplicationForm'
+import ShareComponent from '@/components/ShareComponent'
+import LikeComponent from '@/components/LikeComponent'
 
 // Detect if user is on iOS device
 const isIOS = () => {
@@ -290,6 +292,17 @@ export default function ExperienceUI({ data, store, handleHideLevelClick, handle
       />
 
       <LoadApplicationForm />
+
+      <div className='flex absolute top-20 gap-2 right-2 z-50 shadow-lg p-2 rounded-full'>
+        <LikeComponent 
+          buildingId={data?._id}
+          initialLikeCount={data?.likeCount || 0}
+        />
+        <ShareComponent 
+          buildingId={data?._id} 
+          buildingTitle={data?.name || data?.buildingTitle || 'this property'}
+        />
+      </div>
 
       <LeftPanelUi
         data={data}

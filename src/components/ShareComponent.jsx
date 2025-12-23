@@ -6,7 +6,8 @@ import {
   FiCopy, 
   FiMail, 
   FiMessageCircle,
-  FiX 
+  FiX,
+  FiShare2
 } from 'react-icons/fi';
 import { 
   IoLogoWhatsapp, 
@@ -84,16 +85,34 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
     window.location.href = `sms:?&body=${body}`;
   };
 
+  // Native device share (Web Share API)
+  const shareNative = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: shareMessage,
+          text: `Check out ${buildingTitle}`,
+          url: shareUrl,
+        });
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      // Fallback to copy
+      copyToClipboard();
+    }
+  };
+
   return (
     <>
       {/* Share Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all duration-200 shadow-md hover:shadow-lg"
+        className="flex items-center gap-2 p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all duration-200 shadow-md hover:shadow-lg"
         aria-label="Share this property"
       >
-        <IoShareSocialOutline className="text-xl" />
-        <span className="font-medium text-sm">Share</span>
+        <IoShareSocialOutline className="text-2xl" />
+        {/* <span className="font-medium text-sm">Share</span> */}
       </button>
 
       {/* Share Modal */}
@@ -193,10 +212,19 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
                 {/* Twitter/X */}
                 <button
                   onClick={shareTwitter}
-                  className="flex items-center gap-3 px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors col-span-2"
+                  className="flex items-center gap-3 px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
                 >
                   <IoLogoTwitter className="text-2xl" />
                   <span className="font-medium">Twitter / X</span>
+                </button>
+
+                {/* Native Share (Device Share Sheet) */}
+                <button
+                  onClick={shareNative}
+                  className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-lg hover:from-orange-600 hover:to-pink-600 transition-colors"
+                >
+                  <FiShare2 className="text-2xl" />
+                  <span className="font-medium">More Options</span>
                 </button>
               </div>
             </div>
