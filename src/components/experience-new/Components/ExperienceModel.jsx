@@ -11,6 +11,7 @@ export default function ExperienceModel({ data }) {
     const [updateHideLevelState, setUpdateHideLevelState] = useState(false)
     const [updatedObjectsList, setUpdateObjectList] = useState(data?.hideLevel || [])
     const ref = useRef()
+    const refBase = useRef()
 
     useEffect(() => {
         if (!ref.current) return
@@ -103,7 +104,7 @@ export default function ExperienceModel({ data }) {
         }
     }, [experienceState?.materialColorChange, scene])
 
-    // console.log(ref)
+    // console.log('experienceModel',ref?.current)
 
     return (
         <group

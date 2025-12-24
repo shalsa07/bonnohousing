@@ -31,7 +31,7 @@ export default function LikeComponent({ buildingId, initialLikeCount = 0 }) {
         const fingerprintId = result.visitorId;
         
         setVisitorId(fingerprintId);
-        console.log('Visitor fingerprint loaded:', fingerprintId.substring(0, 8) + '...');
+        // console.log('Visitor fingerprint loaded:', fingerprintId.substring(0, 8) + '...');
 
         // Check localStorage first for instant UX
         const localStorageKey = `liked_${buildingId}`;

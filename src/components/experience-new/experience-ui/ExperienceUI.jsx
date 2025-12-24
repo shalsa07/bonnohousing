@@ -167,8 +167,8 @@ function ColorhangeUi({ data }) {
   }
 
   return (
-    <div className='color-change-ui text-gray-500 flex items-center gap-1 absolute z-10 bottom-20 mx-auto left-0 right-0 w-fit h-fit px-2 flex-wrap'>
-      <div className='flex relative w-fit h-fit gap-2 p-2 rounded-md shadow bg-black/50'>
+    <div className='color-change-ui text-gray-500 flex items-center gap-1 absolute z-10 bottom-20 mx-auto left-0 right-0 w-full px-4 md:max-w-2xl h-fit flex-wrap'>
+      <div className='flex relative overflow-x-auto w-fit h-fit gap-2 p-2 rounded-md shadow bg-black/50'>
         <div
           className='flex z-10 absolute -right-3 cursor-pointer -top-3 text-white justify-center border-2 border-gray-400 bg-black/40 items-center w-8 h-8 rounded-full shadow'
           onClick={() => experienceDispatch({ type: ACTIONS_EXPERIENCE.COLOR_CLOSE })}

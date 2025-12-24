@@ -1,0 +1,62 @@
+name: Deploy to Hostinger VPS
+
+# When to run this workflow
+on:
+  push:
+    branches:
+      - main # Triggers when you push to 'main' branch
+
+# Environment variables available to all jobs
+env:
+  NODE_VERSION: "20" # Node.js version
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest # GitHub's computer that runs the automation
+
+    steps:
+      # Step 1: Download your code from GitHub
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Connect to VPS and deploy
+      - name: 🚀 Deploy to VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            echo "🔄 Starting deployment..."
+
+            # Navigate to your app directory
+            cd ${{ secrets.APP_PATH }}
+
+            # Pull latest code from GitHub
+            echo "📥 Pulling latest code..."
+            git pull origin main
+
+            # Install/update dependencies
+            echo "📦 Installing dependencies..."
+            npm ci
+
+            # Build production bundle
+            echo "🏗️  Building production app..."
+            npm run build
+
+            # Restart the application
+            echo "🔄 Restarting application..."
+            pm2 restart bonnohousing || pm2 start npm --name "bonnohousing" -- start
+
+            echo "✅ Deployment complete!"
+
+      # Step 3: Notify when deployment is done
+      - name: ✅ Deployment Status
+        if: success()
+        run: echo "🎉 Deployment successful!"
+
+      - name: ❌ Deployment Failed
+        if: failure()
+        run: echo "⚠️ Deployment failed - check logs above"
