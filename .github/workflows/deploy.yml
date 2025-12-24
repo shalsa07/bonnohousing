@@ -29,7 +29,7 @@ jobs:
           NODE_ENV: production
 
       - name: 🚀 Sync to VPS via rsync
-        uses: Burnett01/rsync-deployments@v7.0.1
+        uses: Burnett01/rsync-deployments@7.0.0
         with:
           switches: -avzr --delete --exclude-from='.rsyncignore'
           path: ./
