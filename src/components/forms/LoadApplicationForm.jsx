@@ -64,6 +64,8 @@ export default function LoadApplicationForm() {
     });
 
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     // --- HANDLERS ---
     const handleChange = (e) => {
@@ -71,11 +73,37 @@ export default function LoadApplicationForm() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic to send data to backend or email service would go here
-        console.log('Bonno Scheme Application Submitted:', formData);
-        setSubmitted(true);
+        setLoading(true);
+        setError('');
+
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type: 'bonno',
+                    formData
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Bonno Scheme Application Submitted:', formData);
+                setSubmitted(true);
+            } else {
+                throw new Error(data.error || 'Failed to submit application');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            setError('Failed to submit application. Please try again or contact us directly.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     // --- SUB-COMPONENTS FOR STYLING ---
@@ -299,12 +327,19 @@ export default function LoadApplicationForm() {
                                 </p>
                             </div>
 
+                            {error && (
+                                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-sm text-sm max-w-lg w-full">
+                                    {error}
+                                </div>
+                            )}
+
                             <button
                                 type="submit"
-                                className="group relative inline-flex items-center justify-center gap-3 bg-black text-white px-12 py-5 text-sm font-bold uppercase tracking-[0.2em] hover:bg-neutral-800 transition-all w-full md:w-auto shadow-lg hover:shadow-xl rounded-sm"
+                                disabled={loading}
+                                className="group relative inline-flex items-center justify-center gap-3 bg-black text-white px-12 py-5 text-sm font-bold uppercase tracking-[0.2em] hover:bg-neutral-800 transition-all w-full md:w-auto shadow-lg hover:shadow-xl rounded-sm disabled:bg-gray-400 disabled:cursor-not-allowed"
                             >
-                                Submit Assessment
-                                <PaperPlaneIcon />
+                                {loading ? 'Submitting...' : 'Submit Assessment'}
+                                {!loading && <PaperPlaneIcon />}
                             </button>
                         </div>
                     </form>

@@ -12,7 +12,7 @@ export default function ChatComponent() {
     <>
       <div 
         onClick={() => setIsModalOpen(true)} 
-        className={`flex z-50 rounded-full items-center justify-center ${settings.bonnoGreen} ${settings.bonnoHoverBlue} fixed bottom-[112px] p-1 right-2 cursor-pointer transition-colors shadow-lg hover:shadow-xl`}
+        className={`flex z-50 rounded-full items-center justify-center ${settings.bonnoGreen} ${settings.bonnoHoverBlue} fixed bottom-[134px] p-1 right-1 cursor-pointer transition-colors shadow-lg hover:shadow-xl`}
         aria-label="Contact us"
       >
         <IoHeadsetOutline className='text-5xl text-white'/>

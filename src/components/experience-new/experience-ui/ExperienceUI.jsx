@@ -293,7 +293,7 @@ export default function ExperienceUI({ data, store, handleHideLevelClick, handle
 
       <LoadApplicationForm />
 
-      <div className='flex absolute top-20 gap-2 right-2 z-50 shadow-lg p-2 rounded-full'>
+      <div className='flex absolute top-20 gap-2 right-1 z-50 shadow-lg p-2 rounded-full'>
         <LikeComponent 
           buildingId={data?._id}
           initialLikeCount={data?.likeCount || 0}

@@ -108,6 +108,7 @@ export async function POST(request) {
         }
 
         const adminEmail = process.env.ADMIN_EMAIL || 'info@ppsbluyari.com';
+        const ccEmail = 'pm@palamoloproperties.com'; // Additional recipient
         const fromEmail = process.env.EMAIL_FROM || process.env.SMTP_FROM || smtpUser;
 
         let adminEmailContent = '';
@@ -123,6 +124,10 @@ export async function POST(request) {
             subject = 'New Loan Prequalification Submission';
             adminEmailContent = generateLoanAdminEmail(formData);
             userEmailContent = generateLoanUserEmail(formData);
+        } else if (type === 'bonno') {
+            subject = 'New Bonno Housing Scheme Application';
+            adminEmailContent = generateBonnoAdminEmail(formData);
+            userEmailContent = generateBonnoUserEmail(formData);
         } else {
             return NextResponse.json(
                 { error: 'Invalid form type' },
@@ -130,16 +135,17 @@ export async function POST(request) {
             );
         }
 
-        // Send email to admin
+        // Send email to admin with CC to pm@palamoloproperties.com
         try {
-            console.log(`Sending admin email to: ${adminEmail}`);
+            console.log(`Sending admin email to: ${adminEmail} with CC to: ${ccEmail}`);
             await transporter.sendMail({
                 from: fromEmail,
                 to: adminEmail,
+                cc: ccEmail,
                 subject: subject,
                 html: adminEmailContent,
             });
-            console.log('✓ Admin email sent successfully');
+            console.log('✓ Admin email sent successfully to both recipients');
         } catch (mailError) {
             console.error('Failed to send admin email:', mailError);
             throw new Error(`Failed to send admin email: ${mailError.message}`);
@@ -416,3 +422,145 @@ function generateLoanUserEmail(data) {
     </html>
   `;
 }
+
+// Generate admin email for Bonno Housing Scheme application
+function generateBonnoAdminEmail(data = {}) {
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        .header { background: #79A627; color: white; padding: 20px; text-align: center; }
+        .content { background: #f9f9f9; padding: 20px; margin-top: 20px; }
+        .section { margin-bottom: 25px; padding: 15px; background: white; border-left: 4px solid #79A627; }
+        .section-title { font-size: 16px; font-weight: bold; color: #79A627; margin-bottom: 10px; text-transform: uppercase; }
+        .field { margin-bottom: 10px; }
+        .label { font-weight: bold; color: #555; display: inline-block; min-width: 200px; }
+        .value { display: inline-block; color: #333; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h2>🏘️ New Bonno Housing Scheme Application</h2>
+        </div>
+        <div class="content">
+          
+          <div class="section">
+            <div class="section-title">📋 Personal Information</div>
+            <div class="field"><span class="label">Full Name:</span> <span class="value">${data.firstName || 'N/A'} ${data.lastName || ''}</span></div>
+            <div class="field"><span class="label">ID/Passport Number:</span> <span class="value">${data.idNumber || 'N/A'}</span></div>
+            <div class="field"><span class="label">Nationality:</span> <span class="value">${data.nationality || 'N/A'}</span></div>
+            <div class="field"><span class="label">Date of Birth:</span> <span class="value">${data.dob || 'N/A'}</span></div>
+            <div class="field"><span class="label">Phone Number:</span> <span class="value">${data.phone || 'N/A'}</span></div>
+            <div class="field"><span class="label">Email Address:</span> <span class="value">${data.email || 'N/A'}</span></div>
+            <div class="field"><span class="label">Marital Status:</span> <span class="value">${data.maritalStatus || 'N/A'}</span></div>
+          </div>
+
+          ${data.spouseName ? `
+          <div class="section">
+            <div class="section-title">👫 Spouse Details</div>
+            <div class="field"><span class="label">Spouse Name:</span> <span class="value">${data.spouseName || 'N/A'}</span></div>
+            <div class="field"><span class="label">Spouse ID:</span> <span class="value">${data.spouseId || 'N/A'}</span></div>
+            <div class="field"><span class="label">Spouse Income:</span> <span class="value">BWP ${data.spouseIncome || '0'}</span></div>
+          </div>
+          ` : ''}
+
+          <div class="section">
+            <div class="section-title">💼 Employment Details</div>
+            <div class="field"><span class="label">Employment Status:</span> <span class="value">${data.employmentStatus || 'N/A'}</span></div>
+            <div class="field"><span class="label">Employer/Business Name:</span> <span class="value">${data.employerName || 'N/A'}</span></div>
+            <div class="field"><span class="label">Job Title:</span> <span class="value">${data.jobTitle || 'N/A'}</span></div>
+            <div class="field"><span class="label">Employment Duration:</span> <span class="value">${data.employmentDuration || 'N/A'}</span></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">💰 Financial Profile (Monthly)</div>
+            <div class="field"><span class="label">Gross Income:</span> <span class="value">BWP ${data.grossIncome || '0'}</span></div>
+            <div class="field"><span class="label">Net Income (Take Home):</span> <span class="value">BWP ${data.netIncome || '0'}</span></div>
+            ${data.otherIncome ? `<div class="field"><span class="label">Other Income:</span> <span class="value">BWP ${data.otherIncome}</span></div>` : ''}
+            ${data.existingLoans ? `<div class="field"><span class="label">Total Loan Repayments:</span> <span class="value">BWP ${data.existingLoans}</span></div>` : ''}
+            ${data.rentExpense ? `<div class="field"><span class="label">Current Rent:</span> <span class="value">BWP ${data.rentExpense}</span></div>` : ''}
+            <div class="field"><span class="label">Living Expenses:</span> <span class="value">BWP ${data.livingExpenses || '0'}</span></div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">🏠 Property Interest</div>
+            <div class="field"><span class="label">Project:</span> <span class="value">${data.projectInterest || 'N/A'}</span></div>
+            <div class="field"><span class="label">Preferred Unit Type:</span> <span class="value">${data.unitType || 'N/A'}</span></div>
+            <div class="field"><span class="label">Cash Deposit Available:</span> <span class="value">BWP ${data.depositAvailable || '0'}</span></div>
+          </div>
+
+          <div class="field" style="margin-top: 20px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107;">
+            <span class="label">Submitted:</span> <span class="value">${new Date().toLocaleString()}</span>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+// Generate user acknowledgment email for Bonno Housing Scheme
+function generateBonnoUserEmail(data = {}) {
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #79A627; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .highlight { background: #f0f7e6; padding: 15px; border-left: 4px solid #79A627; margin: 20px 0; }
+        .footer { background: #f9f9f9; padding: 15px; text-align: center; margin-top: 20px; font-size: 12px; color: #666; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h2>🏘️ Bonno Housing Scheme Application Received</h2>
+        </div>
+        <div class="content">
+          <p>Dear ${data.firstName || ''} ${data.lastName || ''},</p>
+          <p>Thank you for submitting your pre-qualification application for the <strong>Bonno Housing Scheme</strong>.</p>
+          
+          <div class="highlight">
+            <p><strong>✓ Application Received Successfully</strong></p>
+            <p>We have received your complete financial and personal details for the ${data.unitType || 'selected unit'}.</p>
+          </div>
+
+          <p><strong>What happens next:</strong></p>
+          <ul>
+            <li><strong>Assessment:</strong> Our financial advisors will assess your affordability profile against the scheme's criteria</li>
+            <li><strong>Credit Check:</strong> We will conduct necessary credit checks as authorized in your application</li>
+            <li><strong>Contact:</strong> You will be contacted within <strong>48 hours</strong> with feedback on your pre-qualification status</li>
+            <li><strong>Next Steps:</strong> If pre-qualified, we'll guide you through the full application and unit selection process</li>
+          </ul>
+
+          <p><strong>Your Application Details:</strong></p>
+          <ul>
+            <li>Project: ${data.projectInterest || 'Bonno Housing Scheme'}</li>
+            <li>Unit Type: ${data.unitType || 'N/A'}</li>
+            <li>Deposit Available: BWP ${data.depositAvailable || '0'}</li>
+            <li>Submission Date: ${new Date().toLocaleDateString()}</li>
+          </ul>
+
+          <p>If you have any urgent questions, please don't hesitate to contact us at <strong>info@ppsbluyari.com</strong> or call <strong>+267 75 696 516</strong>.</p>
+          
+          <p>Best regards,<br>
+          <strong>Bonno Housing Scheme Team</strong><br>
+          PPSB Luyari</p>
+        </div>
+        <div class="footer">
+          <p>PPSB Luyari | Building the Future of Southern Africa</p>
+          <p>This is an automated message. Please do not reply to this email.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+

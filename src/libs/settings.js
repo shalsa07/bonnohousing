@@ -175,9 +175,9 @@ export const siteLauyout = {
     },
     conecptSection: {
         images: [
-            './hero/bonno/0002.webp',
-            './hero/bonno/0005.webp',
-            './hero/bonno/0008.webp',
+            './assets/Mahalapye_Bonno_Housing_V1.webp',
+            './assets/BONNO_HOUSING_SITE_ILLUSTRATION_V2.webp',
+            './assets/BONNO_HOUSING_SITE_ILLUSTRATION_V1.webp',
         ],
         text: [
 

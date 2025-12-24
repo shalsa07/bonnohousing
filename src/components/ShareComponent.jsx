@@ -1,13 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IoShareSocialOutline } from 'react-icons/io5';
 import { 
   FiCopy, 
   FiMail, 
   FiMessageCircle,
   FiX,
-  FiShare2
+  FiShare2,
+  FiCamera
 } from 'react-icons/fi';
 import { 
   IoLogoWhatsapp, 
@@ -27,6 +28,9 @@ import { settings } from '@/libs/settings';
 export default function ShareComponent({ buildingId, buildingTitle = 'this property' }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [screenshot, setScreenshot] = useState(null);
+  const [screenshotUrl, setScreenshotUrl] = useState(null);
+  const [capturing, setCapturing] = useState(false);
 
   // Generate shareable URL
   const shareUrl = typeof window !== 'undefined' 
@@ -34,6 +38,61 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
     : '';
 
   const shareMessage = `Check out ${buildingTitle} on PalaMolo Properties!`;
+
+  // Capture screenshot
+  const captureScreenshot = async () => {
+    setCapturing(true);
+    try {
+      // Find the canvas element (Three.js/R3F canvas)
+      const canvas = document.querySelector('canvas');
+      
+      if (!canvas) {
+        console.error('No canvas found');
+        setCapturing(false);
+        return;
+      }
+
+      console.log('Canvas found:', canvas.width, 'x', canvas.height);
+
+      // Use toDataURL to get the image data (works better with WebGL)
+      try {
+        const dataUrl = canvas.toDataURL('image/png');
+        
+        // Convert data URL to blob
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        
+        if (blob && blob.size > 0) {
+          const file = new File([blob], `${buildingTitle}.png`, { type: 'image/png' });
+          const url = URL.createObjectURL(file);
+          setScreenshot(file);
+          setScreenshotUrl(url);
+          console.log('Screenshot captured successfully:', blob.size, 'bytes', url);
+        } else {
+          console.error('Blob is empty');
+        }
+      } catch (err) {
+        console.error('Error converting canvas:', err);
+        // Fallback: Try toBlob
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const file = new File([blob], `${buildingTitle}.png`, { type: 'image/png' });
+            const url = URL.createObjectURL(file);
+            setScreenshot(file);
+            setScreenshotUrl(url);
+            console.log('Screenshot captured via toBlob', url);
+          }
+          setCapturing(false);
+        }, 'image/png');
+        return;
+      }
+      
+      setCapturing(false);
+    } catch (error) {
+      console.error('Failed to capture screenshot:', error);
+      setCapturing(false);
+    }
+  };
 
   // Copy link to clipboard
   const copyToClipboard = async () => {
@@ -86,15 +145,29 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
     window.location.href = `sms:?&body=${body}`;
   };
 
+  // Open modal and capture screenshot
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    // Capture screenshot when modal opens
+    setTimeout(() => captureScreenshot(), 100);
+  };
+
   // Native device share (Web Share API)
   const shareNative = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({
+        const shareData = {
           title: shareMessage,
           text: `Check out ${buildingTitle}`,
           url: shareUrl,
-        });
+        };
+        
+        // Include screenshot if available and supported
+        if (screenshot && navigator.canShare && navigator.canShare({ files: [screenshot] })) {
+          shareData.files = [screenshot];
+        }
+        
+        await navigator.share(shareData);
       } catch (err) {
         console.log('Error sharing:', err);
       }
@@ -108,7 +181,7 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
     <>
       {/* Share Button */}
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleOpenModal}
         className={`flex items-center gap-2 p-2 rounded-full ${settings.bonnoBlue} text-white hover:bg-blue-500 transition-all duration-200 shadow-md hover:shadow-lg aria-label="Share this property`}
       >
         <IoShareSocialOutline className="text-xl" />
@@ -117,8 +190,8 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
 
       {/* Share Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-gray-500/85 rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-2">
+          <div className="bg-gray-500/85 rounded-2xl shadow-2xl max-w-md w-full p-3 relative animate-fadeIn">
             {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
@@ -129,10 +202,33 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
             </button>
 
             {/* Header */}
-            <div className="mb-6">
+            <div className="mb-2">
               <h2 className="text-2xl font-bold text-gray-50 mb-2">Share Property</h2>
               <p className="text-gray-100 text-sm">Share {buildingTitle} with friends and family</p>
             </div>
+
+            {/* Screenshot Preview */}
+            {capturing ? (
+              <div className="mb-2 p-4 bg-gray-50 rounded-lg text-center">
+                <FiCamera className="text-4xl text-gray-400 mx-auto mb-2 animate-pulse" />
+                <p className="text-sm text-gray-600">Capturing view...</p>
+              </div>
+            ) : screenshot ? (
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-100 mb-2">
+                  Preview
+                </label>
+                <img 
+                  src={screenshotUrl} 
+                  alt="Screenshot preview" 
+                  className="w-full h-[25vh] object-cover rounded-lg border border-gray-300"
+                  onError={(e) => {
+                    console.error('Image load error');
+                    e.target.style.display = 'none';
+                  }}
+                />
+              </div>
+            ) : null}
 
             {/* Copy Link Section */}
             <div className="mb-6 p-4 bg-gray-50 rounded-lg">
@@ -144,11 +240,11 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
                   type="text"
                   value={shareUrl}
                   readOnly
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-1 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <button
                   onClick={copyToClipboard}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                  className={`px-4 py-1 rounded-lg font-medium text-sm transition-all ${
                     copied
                       ? 'bg-green-500 text-white'
                       : 'bg-blue-500 text-white hover:bg-blue-600'
@@ -169,10 +265,10 @@ export default function ShareComponent({ buildingId, buildingTitle = 'this prope
 
             {/* Share Options */}
             <div>
-              <label className="block text-sm font-medium text-gray-50 mb-3">
+              <label className="block text-sm font-medium text-gray-50 mb-1">
                 Share via
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 {/* WhatsApp */}
                 <button
                   onClick={shareWhatsApp}

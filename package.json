@@ -21,6 +21,7 @@
     "@uiw/react-color-circle": "^2.8.1",
     "firebase": "^12.4.0",
     "framer-motion": "^12.23.22",
+    "html2canvas": "^1.4.1",
     "lil-gui": "^0.20.0",
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.0",

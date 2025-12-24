@@ -11,6 +11,7 @@ import Link from 'next/link'
 import RollOverStateWrapper from './RollOverStateWrapper'
 import PresidentCarousel from './PresidentCarousel'
 import GoogleLocationComponent from './GoogleLocationComponent'
+import CarouselComponent from './CarouselComponent'
 const socialsCss = `hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear bg-${settings.bonnoGreen} hover:bg-${settings.bonnoBlue}`
 // const socialsCss = 'hover:text-white transition-colors text-3xl hover:scale-110 duration-300 ease-linear'
 
@@ -48,6 +49,19 @@ const heroImages = [
         category: 'Interior Visualization'
     }
 ];
+
+const presidentialImages = [
+    {
+      image: '/assets/president_duma_boko_img_001.webp',
+      title: 'Modern Residential',
+      category: 'Exterior Visualization'
+    },
+    {
+      image: '/assets/president_duma_boko_img_002.webp',
+      title: 'Contemporary Villa',
+      category: 'Exterior Visualization'
+    }
+  ];
 
 const socialsButtons = [
     { name: 'facebook', icon: <FaFacebook />, link: 'https://www.facebook.com/' },
@@ -178,12 +192,13 @@ export default function LandingPageTextCmponent() {
                             <div className='w-auto mt-20 md:mt-0 h-full brightness-75'>
                                 {/* <img className='w-auto h-full' src={siteLauyout.presidentSection.image} alt="" /> */}
                                 <PresidentCarousel />
+                                {/* <CarouselComponent heroImages={['./assets/president_duma_boko_img_001.webp','./assets/president_duma_boko_img_002.webp']} /> */}
                             </div>
                             <div className='min-w-[320px] max-w-[640px] h-full px-5 flex flex-col justify-center items-start md:items-center'>
                                 <h1 className="text-[32px] md:text-6xl lg:text-4xl italic uppercase tracking-tight text-wrap leading-none font-light text-white text-left drop-shadow-lg">
                                     {/* {siteLauyout.presidentSection.text.title} */}
                                     <div className='flex flex-col'>
-                                        <span className="font-extralight w-full">BUY, INVERT OR RENT </span>
+                                        <span className="font-extralight w-full uppercase">BUY, INVEST OR RENT </span>
                                         
                                         <span className={`font-bold uppercase justify-around ${settings.bonnoTextBlue}`}>A HOUSE IN His Excellency The President’s HOME TOWN </span>
                                         <span className={`font-bold ${settings.bonnoTextGreen}`}>OF MAHALAPYE...</span>
@@ -258,12 +273,13 @@ export default function LandingPageTextCmponent() {
                 {/* --- CARUSAL SECTION --- */}
                 <section className="bg-neutral-50" >
                     {/* Tier 1: Zambia */}
-                    <div id="residential" className="flex relative h-[80vh] overflow-x-scroll" >
-                        {siteLauyout?.conecptSection?.images?.map((i, index) =>
+                    <div id="residential" className="flex relative h-[100vh] overflow-x-scroll" >
+                        {/* {siteLauyout?.conecptSection?.images?.map((i, index) =>
                             <div className='flex relative items-center justify-center min-w-[100vw] h-full' key={index}>
-                                <img className='w-full brightness-75 h-full object-cover' src={i} alt="" />
+                                <img className='w-full brightness-75- h-full object-cover' src={i} alt="" />
                             </div>
-                        )}
+                        )} */}
+                        <CarouselComponent heroImages={siteLauyout?.conecptSection?.images} />
                     </div >
                 </section >
 

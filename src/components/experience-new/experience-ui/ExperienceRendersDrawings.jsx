@@ -103,7 +103,7 @@ export default function ExperienceRendersDrawings({ data, options, images = {}, 
                     {/* Lifestyle images row */}
                     <div className='mt-8 flex flex-wrap'>
                         {data?.hero?.heroFeatured?.slice(0, 3)?.map((item, idx) => (
-                            <div key={idx} className='flex flex-col h-auto w-1/3 p-2'>
+                            <div key={idx} className='flex flex-col h-auto w-full md:w-1/3 p-2'>
                                 <div className='relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow ring-1 ring-stone-300 bg-stone-200'>
                                     {item?.url?.length > 0 ? <Image src={item?.url} alt={item?.name} fill className='object-cover' /> : <ImageNotFoundPlaceholder />}
                                 </div>
