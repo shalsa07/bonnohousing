@@ -2,6 +2,10 @@ import clientPromise from '@/libs/db';
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 
+// Prevent build-time execution
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',

@@ -5,6 +5,8 @@ import { auth } from '@/auth';
 import clientPromise from '@/libs/db';
 
 export const maxDuration = 300; // 5 minutes timeout for Vercel/Next.js
+export const dynamic = 'force-dynamic'; // Prevent build-time execution
+export const runtime = 'nodejs';
 
 /**
  * Copy file from source to destination in Firebase Storage
