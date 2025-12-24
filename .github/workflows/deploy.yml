@@ -48,7 +48,7 @@ jobs:
 
             # Restart the application
             echo "🔄 Restarting application..."
-            pm2 restart bonnohousing || pm2 start npm --name "bonnohousing" -- start
+            pm2 reload bonnohousing --update-env || pm2 start npm --name "bonnohousing" -- start
 
             echo "✅ Deployment complete!"
 
