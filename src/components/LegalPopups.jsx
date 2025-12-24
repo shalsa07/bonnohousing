@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import LegalPageWrapperPopup from './LegalPageWrapperPopup'
 import DisclaimerComponent from './DisclaimerComponent'
@@ -6,6 +7,7 @@ import PrivacyPolicyComponent from './PrivacyPolicyComponent'
 import CopyrightNoticeComponent from './CopyrightNoticeComponent'
 import { useSiteContext } from '@/libs/contextProviders/siteContext'
 import { ACTIONS_SITE } from '@/libs/contextProviders/reducerSite'
+import { settings } from '@/libs/settings'
 
 export default function LegalPopups() {
     const {siteState,siteDispatch}=useSiteContext()
@@ -16,7 +18,7 @@ export default function LegalPopups() {
             {siteState.termsConditionsPopup && <TermsConditionsComponent/>}
             {siteState.privacyPolicyPopup && <PrivacyPolicyComponent/>}
             {siteState.copyrightNoticePopup && <CopyrightNoticeComponent/>}
-            <button className={`flex w-fit px-6 h-12 my-10 items-center justify-center ${settings.bonnoBlue}`} onClick={()=>siteDispatch({type:ACTIONS_SITE.CLOSE_ALL_POPUPS})}>close</button>
+            <button className={`flex fixed bottom-2 left-0 right-0 mx-auto w-lg h-12 mt-10 items-center rounded-full text-gray-100 uppercase justify-center ${settings.bonnoBlue}`} onClick={()=>siteDispatch({type:ACTIONS_SITE.CLOSE_ALL_POPUPS})}>close</button>
         </LegalPageWrapperPopup>
     </div>)
 }

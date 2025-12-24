@@ -9,16 +9,22 @@ export default function Footer() {
     const {siteState,siteDispatch}=useSiteContext()
 
     const legalPopupFunction = (name) => { 
+      console.log('legalPopupFunction:',name)
       name==="privacy policy" && siteDispatch({type:ACTIONS_SITE.PRIVACY_POLICY_POPUP})
       name==="terms & conditions" && siteDispatch({type:ACTIONS_SITE.TERMS_CONDITIONS_POPUP})
       name==="copyright" && siteDispatch({type:ACTIONS_SITE.COPYRIGHT_NOTICE_POPUP})
       name==="full disclaimer" && siteDispatch({type:ACTIONS_SITE.DISCLAIMER_POPUP})
      }
+    
   return (
     <footer className='flex fixed text-white bottom-0 overflow-hidden right-0 mx-auto z-30 justify-between w-full h-16 items-center'>
       <div className={`flex flex-row relative flex-wrap px-2 items-center ${settings.bonnoBlueFaint} w-1/2 h-full`}>
         {siteLauyout?.footerPagesLinks?.map(i =>
-          <button onClick={()=>{legalPopupFunction(i)}} key={i} className='md:text-xs text-[10px] border-l-1 text-wrap border-white px-2 max-w-fit uppercase' href={`/`}>{i}</button>
+          <button 
+            onClick={()=>{legalPopupFunction(i)}} 
+            key={i} 
+            className='md:text-xs text-[10px] border-l-1 text-wrap border-white px-2 max-w-fit uppercase'
+          >{i}</button>
         )}
       </div>
 
