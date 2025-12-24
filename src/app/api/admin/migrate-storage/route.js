@@ -3,6 +3,10 @@ import { ref, listAll, getDownloadURL, uploadBytes, getMetadata } from 'firebase
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 
+// Make this route dynamic to prevent build-time execution
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 /**
  * Firebase Storage Migration Utility
  * Copies files from ppsbluyari folder to bonnohousing/houses folder
