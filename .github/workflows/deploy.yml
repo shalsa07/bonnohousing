@@ -1,63 +1,71 @@
-name: Deploy to Hostinger VPS
+name: Build and Deploy to VPS
 
-# When to run this workflow
 on:
   push:
-    branches:
-      - main # Triggers when you push to 'main' branch
-
-# Environment variables available to all jobs
-env:
-  NODE_VERSION: "20" # Node.js version
+    branches: [main]
 
 jobs:
-  deploy:
-    name: Deploy to Production
-    runs-on: ubuntu-latest # GitHub's computer that runs the automation
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Download your code from GitHub
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Connect to VPS and deploy
-      - name: 🚀 Deploy to VPS
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build project
+        run: npm run build
+        env:
+          # Add any build-time environment variables here if needed
+          # NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NODE_ENV: production
+
+      - name: 🚀 Sync to VPS via rsync
+        uses: Burnett01/rsync-deployments@v7.0.1
+        with:
+          switches: -avzr --delete --exclude-from='.rsyncignore'
+          path: ./
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: ${{ secrets.VPS_USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote_port: ${{ secrets.VPS_PORT || 22 }}
+          remote_path: ${{ secrets.APP_PATH }}
+
+      - name: 🔄 Restart PM2 on VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
-          command_timeout: 40m
           script: |
-            echo "🔄 Starting deployment..."
-
-            # Navigate to your app directory
+            echo "🔄 Restarting application..."
             cd ${{ secrets.APP_PATH }}
 
-            # Pull latest code from GitHub
-            echo "📥 Pulling latest code..."
-            git pull origin main
+            # Install production dependencies only (in case package.json changed)
+            npm ci --production
 
-            # Install/update dependencies
-            echo "📦 Installing dependencies..."
-            npm ci
-
-            # Build production bundle
-            echo "🏗️  Building production app..."
-            npm run build
-
-            # Restart the application
-            echo "🔄 Restarting application..."
+            # Restart PM2
             pm2 reload bonnohousing --update-env || pm2 start npm --name "bonnohousing" -- start
 
+            # Show status
+            pm2 status
             echo "✅ Deployment complete!"
 
-      # Step 3: Notify when deployment is done
-      - name: ✅ Deployment Status
+      - name: ✅ Deployment Success
         if: success()
         run: echo "🎉 Deployment successful!"
 
       - name: ❌ Deployment Failed
         if: failure()
-        run: echo "⚠️ Deployment failed - check logs above"
+        run: |
+          echo "⚠️ Deployment failed!"
+          echo "Check the logs above for errors"

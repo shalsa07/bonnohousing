@@ -1,0 +1,52 @@
+# Rsync ignore file - excludes these from deployment sync
+
+# Dependencies (will be installed on VPS via npm ci --production)
+node_modules/
+
+# Development files
+.git/
+.github/
+*.md
+.vscode/
+.idea/
+
+# Environment files (should already exist on VPS)
+.env
+.env.local
+.env.*.local
+
+# Development configs
+.eslintrc.json
+.prettierrc
+
+# Test files
+coverage/
+*.test.js
+*.spec.js
+__tests__/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Temporary files
+.cache/
+tmp/
+temp/
+
+# Build artifacts that aren't needed
+.next/cache/
+out/
+
+# SSH keys
+*.pem
+certificates/
