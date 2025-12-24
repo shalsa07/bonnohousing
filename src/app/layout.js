@@ -3,10 +3,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ExperienceContextProvider from "@/libs/contextProviders/experienceContext";
-import WhatsAppComponent from "@/components/WhatsAppComponent";
 import AuthProvider from "@/libs/AuthProvider";
 import SiteContextProvider from "@/libs/contextProviders/siteContext";
 import ChatComponent from "@/components/ChatComponent";
+import LegalPopups from "@/components/LegalPopups";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +37,7 @@ export default function RootLayout({ children }) {
               {children}
               {/* <WhatsAppComponent/> */}
               <ChatComponent/>
+              <LegalPopups/>
             </ExperienceContextProvider>
           </SiteContextProvider>
         </AuthProvider>

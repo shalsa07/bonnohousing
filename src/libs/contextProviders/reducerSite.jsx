@@ -2,10 +2,19 @@ import LandingPageCarousel from "@/components/LandingPageCarousel";
 
 export const INITIAL_EXPERIENCE_STATE={
     landingPageCarouselPopup:true,
+    disclaimerPopup:true,
+    copyrightNoticePopup:false,
+    termsConditionsPopup:false,
+    privacyPolicyPopup:false,
 }
 
 export const ACTIONS_SITE={
     CAROUSEL_CLOSE:'CAROUSEL_CLOSE',
+    DISCLAIMER_POPUP:'DISCLAIMER_POPUP',
+    COPYRIGHT_NOTICE_POPUP:'COPYRIGHT_NOTICE_POPUP',
+    TERMS_CONDITIONS_POPUP:'TERMS_CONDITIONS_POPUP',
+    PRIVACY_POLICY_POPUP:'PRIVACY_POLICY_POPUP',
+    CLOSE_ALL_POPUPS:'CLOSE_ALL_POPUPS',
 }
 
 export const reducerSiteFunction=(state,action)=>{
@@ -23,6 +32,34 @@ export const reducerSiteFunction=(state,action)=>{
             return {
                 ...state,
                 landingPageCarouselPopup:true,
+            }
+        case 'DISCLAIMER_POPUP':
+            return {
+                ...state,
+                disclaimerPopup:true,
+            }
+        case 'COPYRIGHT_NOTICE_POPUP':
+            return {
+                ...state,
+                copyrightNoticePopup:true,
+            }
+        case 'TERMS_CONDITIONS_POPUP':
+            return {
+                ...state,
+                termsConditionsPopup:true,
+            }
+        case 'PRIVACY_POLICY_POPUP':
+            return {
+                ...state,
+                privacyPolicyPopup:true,
+            }
+        case 'CLOSE_ALL_POPUPS':
+            return {
+                ...state,
+                privacyPolicyPopup:false,
+                termsConditionsPopup:false,
+                copyrightNoticePopup:false,
+                disclaimerPopup:false,
             }
         default:
             return state;
