@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import clientPromise from '@/libs/db';
 import { ObjectId } from 'mongodb';
 
+// Prevent build-time execution
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 /**
  * Like API Route
  * Handles toggling likes for buildings using browser fingerprinting

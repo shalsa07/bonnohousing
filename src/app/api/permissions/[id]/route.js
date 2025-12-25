@@ -2,6 +2,9 @@ import clientPromise from '@/libs/db';
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
+// Prevent build-time execution
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 export async function GET(request, { params }) {
   try {
     const client = await clientPromise;
