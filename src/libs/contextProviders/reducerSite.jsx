@@ -2,7 +2,7 @@ import LandingPageCarousel from "@/components/LandingPageCarousel";
 
 export const INITIAL_EXPERIENCE_STATE={
     landingPageCarouselPopup:true,
-    disclaimerPopup:true,
+    disclaimerPopup:false,
     copyrightNoticePopup:false,
     termsConditionsPopup:false,
     privacyPolicyPopup:false,
