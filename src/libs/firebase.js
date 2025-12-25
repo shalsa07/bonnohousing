@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 // Firebase configuration
 // Note: Use NEXT_PUBLIC_ prefix for client-side environment variables
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "mock-key-for-build",
   authDomain: "luyari-55dcd.firebaseapp.com",
   projectId: "luyari-55dcd",
   storageBucket: "luyari-55dcd.appspot.com",
