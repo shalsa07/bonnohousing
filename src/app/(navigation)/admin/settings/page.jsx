@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import SiteLayoutForm from '@/components/forms/SiteLayoutForm';
 import { MdSettings } from 'react-icons/md';
-import DataMigrationButton from '@/components/admin/DataMigrationButton';
+
 
 export default function SettingsPage() {
   const [siteLayoutData, setSiteLayoutData] = useState(null);
@@ -114,7 +114,7 @@ export default function SettingsPage() {
           />
         )}
         
-        {/* <DataMigrationButton /> */}
+
       </div>
     </div>
   );
